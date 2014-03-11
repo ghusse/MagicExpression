@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MagicExpression</id>
+    <version>0.0.2</version>
+    <authors>Guillaume Gautreau, Timothée Bourguignon</authors>
+    <owners>Guillaume Gautreau, Timothée Bourguignon</owners>
+    <projectUrl>https://github.com/ghusse/MagicExpression</projectUrl>
+    <licenseUrl>https://github.com/ghusse/MagicExpression/blob/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A simple C# DSL to ease usage of Regular Expression for those who don't want to fight with them.</description>
+    <releaseNotes>Initial package release</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>C# RegularExpression Regex MagicExpression Magic</tags>
+  </metadata>
+</package>
