@@ -2,10 +2,8 @@
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Linq;
 	using System.Text;
 	using System.Text.RegularExpressions;
-	using System.Threading.Tasks;
 	using MagicExpression.Elements;
 
 	public class Magex : IRepeatable, IRepeat, ILasiness
@@ -281,6 +279,16 @@
 		public IRepeatable BackReference(uint index)
 		{
 			this.expression.Add(new IndexedBackReference(index));
+			return this;
+		}
+
+		#endregion
+
+		#region Literal
+
+		public IChainable Literal(string regex)
+		{
+			this.expression.Add(new Literal(regex));
 			return this;
 		}
 

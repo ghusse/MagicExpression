@@ -1,10 +1,6 @@
 ﻿namespace MagicExpression
 {
 	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-	using System.Threading.Tasks;
 
 	public interface IChainable : IExpressionElement
 	{
@@ -17,8 +13,11 @@
 		IRepeatable CharacterNotIn(string otherChars);
 		IRepeatable CharacterNotIn(params char[] otherChars);
 		IRepeatable Character();
+
 		IChainable StartOfLine();
 		IChainable EndOfLine();
+
+		IChainable Literal(string regex);
 
 		IRepeatable Group(IExpressionElement grouped);
 		IRepeatable Capture(IExpressionElement captured);
