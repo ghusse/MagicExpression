@@ -13,8 +13,11 @@
 		IRepeatable CharacterNotIn(string otherChars);
 		IRepeatable CharacterNotIn(params char[] otherChars);
 		IRepeatable Character();
+
 		IChainable StartOfLine();
 		IChainable EndOfLine();
+
+		IChainable Literal(string regex);
 
 		IRepeatable Group(IExpressionElement grouped);
 		IRepeatable Capture(IExpressionElement captured);

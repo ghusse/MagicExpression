@@ -283,5 +283,15 @@
 		}
 
 		#endregion
+
+		#region Literal
+
+		public IChainable Literal(string regex)
+		{
+			this.expression.Add(new Literal(regex));
+			return this;
+		}
+
+		#endregion
 	}
 }
