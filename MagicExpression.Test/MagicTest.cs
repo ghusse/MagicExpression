@@ -36,6 +36,18 @@
 			}
 		}
 
+		protected void AssertCaptures(Func<MatchCollection, bool> assertion, params string[] strings)
+		{
+			Regex expression = new Regex(this.Magic.Expression);
+
+			foreach (string candidate in strings)
+			{
+				string message = String.Format("String {0} captures should respect assertion", candidate);
+
+				Assert.IsTrue(assertion(expression.Matches(candidate)), message);
+			}
+		}
+
 		public virtual void Setup()
 		{
 			this.Magic = Magex.New();
