@@ -15,7 +15,7 @@
 		[TestMethod]
 		public void Literal()
 		{
-			this.Magic.Literal(@"[A-Z][a-z]*[\w][a-z]*\.");
+			this.Magic.Literal(@"[A-Z][a-z]*[\s][a-z]*\.");
 
 			this.AssertIsMatching("Hello world.");
 			this.AssertIsNotMatching("hello world.");
