@@ -72,5 +72,17 @@
 			this.AssertIsMatching("aabbbccc", "abbbc");
 			this.AssertIsNotMatching("abbc", "aaabccc");
 		}
+
+		[TestMethod]
+		public void BetweenTest()
+		{
+			this.Magic
+				.Character('a')
+				.Character('b').Repeat.Between(2, 10)
+				.Character('c');
+
+			this.AssertIsMatching("abbc", "abbbbbbbbbbc");
+			this.AssertIsNotMatching("abc", "abbbbbbbbbbbc");
+		}
 	}
 }

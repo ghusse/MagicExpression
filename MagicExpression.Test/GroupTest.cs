@@ -16,8 +16,7 @@
 		public void NonCapturingTest()
 		{
 			this.Magic.Character('a')
-				.Group(
-					Magex.New().String("bcde")
+				.Group(x => x.String("bcde")
 				).Character('f');
 
 			this.AssertIsMatching("abcdef");
@@ -35,8 +34,7 @@
 		public void CaptureTest()
 		{
 			this.Magic.Character('a')
-				.Capture(
-					Magex.New().String("bcde")
+				.Capture(x => x.String("bcde")
 				).Character('f');
 
 			this.AssertIsMatching("abcdef");
@@ -55,7 +53,7 @@
 		public void NamedCaptureTest()
 		{
 			this.Magic.Character('a')
-				.CaptureAs("gotcha", Magex.New().String("bcde"))
+				.CaptureAs("gotcha", x => x.String("bcde"))
 				.Character('f');
 
 			this.AssertIsMatching("abcdef");
