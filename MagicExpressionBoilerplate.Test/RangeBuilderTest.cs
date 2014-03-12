@@ -40,13 +40,6 @@ namespace MagicExpressionBoilerplate.Test
     [TestClass]
     public class RangeBuilderTest: RangeTester
     {
-        [ExpectedException(typeof(RangeException))]
-        [TestMethod]
-        public void NegativeDigitRange()
-        {
-            MagexBuilder.CreateNumericRange(-9, 9);
-        }
-
         [TestMethod]
         public void OneDigitRange()
         {

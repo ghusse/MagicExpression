@@ -17,8 +17,8 @@ namespace MagicExpression
         /// <example>("0-42") ->  "([0-9]|[1-3][0-9]|4[0-2])"</example>
         public static string CreateNumericRange(string argument)
         {
-            var from = Convert.ToInt64(argument.Substring(0, argument.IndexOf('-')));
-            var to = Convert.ToInt64(argument.Substring(argument.IndexOf('-') + 1));
+            var from = Convert.ToUInt64(argument.Substring(0, argument.IndexOf('-')));
+            var to = Convert.ToUInt64(argument.Substring(argument.IndexOf('-') + 1));
 
             return CreateNumericRange(from, to);
         }
@@ -30,10 +30,8 @@ namespace MagicExpression
         /// <param name="to">The second bound of the range, must be bigger than the fist bound</param>
         /// <returns>The range as a string, wrapped with parenthesis</returns>
         /// <example>("0", "42") ->  "([0-9]|[1-3][0-9]|4[0-2])"</example>
-        public static string CreateNumericRange(long from, long to)
+        public static string CreateNumericRange(ulong from, ulong to)
         {
-            if (from < 0 || to < 0)
-                throw new RangeException("Invalid range, negative numbers are not allowed");
             if (from > to)
                 throw new RangeException("Invalid range, from > to");
 
@@ -42,7 +40,7 @@ namespace MagicExpression
 
         #region Range support functions
 
-        private static string GetNumericRange(long from, long to)
+        private static string GetNumericRange(ulong from, ulong to)
         {
             IList<string> ranges = DecomposeSteps(from, to);
 
@@ -66,11 +64,11 @@ namespace MagicExpression
             return regex.Substring(0, regex.Length - 1) + ")";
         }
 
-        private static List<string> DecomposeSteps(long from, long to)
+        private static List<string> DecomposeSteps(ulong from, ulong to)
         {
-            var increment = 1;
-            var next = from;
-            var higher = true;
+            ulong increment = 1;
+            ulong next = from;
+            bool higher = true;
 
             var ranges = new List<string> { from.ToString(CultureInfo.InvariantCulture) };
 
