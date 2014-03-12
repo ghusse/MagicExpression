@@ -6,7 +6,7 @@
 	using System.Text.RegularExpressions;
 	using MagicExpression.Elements;
 
-	public class Magex : IRepeatable, IRepeat, ILasiness
+    public partial class Magex : IRepeatable, IRepeat, ILasiness
 	{
 		#region Fields
 

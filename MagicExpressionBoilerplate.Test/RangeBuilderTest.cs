@@ -7,9 +7,9 @@ namespace MagicExpressionBoilerplate.Test
 {
     public abstract class RangeTester
     {
-        protected void AssertIsMatching(string range, string[] testData)
+        protected void AssertIsMatching(ulong from, ulong to, string[] testData)
         {
-            var rangePattern = GetPattern(range);
+            var rangePattern = GetRangePattern(from, to);
             var expression = new Regex(rangePattern);
 
             foreach (string shouldMatch in testData)
@@ -19,9 +19,9 @@ namespace MagicExpressionBoilerplate.Test
             }
         }
 
-        protected void AssertIsNotMatching(string range, string[] testData)
+        protected void AssertIsNotMatching(ulong from, ulong to, string[] testData)
         {
-            var rangePattern = GetPattern(range);
+            var rangePattern = GetRangePattern(from, to);
             var expression = new Regex(rangePattern);
 
             foreach (string shouldMatch in testData)
@@ -31,9 +31,9 @@ namespace MagicExpressionBoilerplate.Test
             }
         }
 
-        private static string GetPattern(string range)
+        private static string GetRangePattern(ulong from, ulong to)
         {
-            return string.Format(@"\b{0}\b", MagexBuilder.CreateNumericRange(range));
+            return string.Format(@"\b{0}\b", MagexBuilder.NumericRange(from, to));
         }
     }
 
@@ -43,41 +43,46 @@ namespace MagicExpressionBoilerplate.Test
         [TestMethod]
         public void OneDigitRange()
         {
-            const string argument = "0-9";
-            this.AssertIsMatching(argument, new[] { "0", "9" });
-            this.AssertIsNotMatching(argument, new[] { "10" });
+            const ulong from = 0, to = 9;
+
+            this.AssertIsMatching(from, to, new[] { "0", "9" });
+            this.AssertIsNotMatching(from, to, new[] { "10" });
         }
 
         [TestMethod]
         public void TwoDigitRange()
         {
-            const string argument = "0-99";
-            this.AssertIsMatching(argument, new[] { "0", "9", "99" });
-            this.AssertIsNotMatching(argument, new[] { "100", "999" });
+            const ulong from = 0, to = 99;
+
+            this.AssertIsMatching(from, to, new[] { "0", "9", "99" });
+            this.AssertIsNotMatching(from, to, new[] { "100", "999" });
         }
 
         [TestMethod]
         public void ThreeDigitRange()
         {
-            const string argument = "0-999";
-            this.AssertIsMatching(argument, new[] { "0", "9", "99", "999" });
-            this.AssertIsNotMatching(argument, new[] { "1000", "9999" });
+            const ulong from = 0, to = 999;
+
+            this.AssertIsMatching(from, to, new[] { "0", "9", "99", "999" });
+            this.AssertIsNotMatching(from, to, new[] { "1000", "9999" });
         }
 
         [TestMethod]
         public void FourDigitRange()
         {
-            const string argument = "0-9999";
-            this.AssertIsMatching(argument, new[] { "0", "9", "99", "999", "9999" });
-            this.AssertIsNotMatching(argument, new[] { "10000", "99999" });
+            const ulong from = 0, to = 9999;
+
+            this.AssertIsMatching(from, to, new[] { "0", "9", "99", "999", "9999" });
+            this.AssertIsNotMatching(from, to, new[] { "10000", "99999" });
         }
 
         [TestMethod]
         public void Range0_255()
         {
-            const string argument = "0-255";
-            this.AssertIsMatching(argument, new[] { "0", "9", "10", "19", "20", "42", "99", "100", "199", "200", "249", "250", "255" });
-            this.AssertIsNotMatching(argument, new[] { "256" });
+            const ulong from = 0, to = 255;
+
+            this.AssertIsMatching(from, to, new[] { "0", "9", "10", "19", "20", "42", "99", "100", "199", "200", "249", "250", "255" });
+            this.AssertIsNotMatching(from, to, new[] { "256" });
         }
     }
 }

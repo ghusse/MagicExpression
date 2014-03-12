@@ -12,30 +12,16 @@ namespace MagicExpression
         /// <summary>
         /// Create a regex valid numeric range
         /// </summary>
-        /// <param name="argument">The range in format "from-to"</param>
-        /// <returns>The range as a string, wrapped with parenthesis</returns>
-        /// <example>("0-42") ->  "([0-9]|[1-3][0-9]|4[0-2])"</example>
-        public static string CreateNumericRange(string argument)
-        {
-            var from = Convert.ToUInt64(argument.Substring(0, argument.IndexOf('-')));
-            var to = Convert.ToUInt64(argument.Substring(argument.IndexOf('-') + 1));
-
-            return CreateNumericRange(from, to);
-        }
-
-        /// <summary>
-        /// Create a regex valid numeric range
-        /// </summary>
         /// <param name="from">The first bound of the range</param>
         /// <param name="to">The second bound of the range, must be bigger than the fist bound</param>
         /// <returns>The range as a string, wrapped with parenthesis</returns>
         /// <example>("0", "42") ->  "([0-9]|[1-3][0-9]|4[0-2])"</example>
-        public static string CreateNumericRange(ulong from, ulong to)
+        public static string NumericRange(ulong from, ulong to)
         {
             if (from > to)
                 throw new RangeException("Invalid range, from > to");
 
-            return GetNumericRange(from, to);
+            return string.Format(@"\b{0}\b", GetNumericRange(from, to));
         }
 
         #region Range support functions
