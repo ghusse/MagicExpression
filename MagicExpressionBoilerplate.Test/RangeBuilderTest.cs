@@ -33,7 +33,7 @@ namespace MagicExpressionBoilerplate.Test
 
         private static string GetPattern(string range)
         {
-            return string.Format(@"\b{0}\b", RangeBuilder.CreateNumericRange(range));
+            return string.Format(@"\b{0}\b", MagexBuilder.CreateNumericRange(range));
         }
     }
 
@@ -44,7 +44,7 @@ namespace MagicExpressionBoilerplate.Test
         [TestMethod]
         public void NegativeDigitRange()
         {
-            RangeBuilder.CreateNumericRange(-9, 9);
+            MagexBuilder.CreateNumericRange(-9, 9);
         }
 
         [TestMethod]

@@ -58,7 +58,7 @@
     <Compile Include="ILasiness.cs" />
     <Compile Include="Magex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RangeBuilder.cs" />
+    <Compile Include="MagexBuilder.cs" />
     <Compile Include="RegexCharacters.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

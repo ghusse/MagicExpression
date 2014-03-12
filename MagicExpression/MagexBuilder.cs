@@ -5,9 +5,9 @@ using System.Globalization;
 namespace MagicExpression
 {
     /// <summary>
-    /// Helper class used to generate regular expression ranges, ex: "1-42" ->  "([0-9]|[1-3][0-9]|4[0-2])"
+    /// Helper class
     /// </summary>
-    public static class RangeBuilder
+    public static class MagexBuilder
     {
         /// <summary>
         /// Create a regex valid numeric range
@@ -40,12 +40,13 @@ namespace MagicExpression
             return GetNumericRange(from, to);
         }
 
+        #region Range support functions
+
         private static string GetNumericRange(long from, long to)
         {
             IList<string> ranges = DecomposeSteps(from, to);
 
-            //var regex = "/^(?:";
-            var regex = "(";//"?:";
+            var regex = "(?:";
 
             for (var i = 0; i < ranges.Count - 1; i++)
             {
@@ -62,7 +63,6 @@ namespace MagicExpression
                 regex += "|";
             }
 
-            //return regex.Substring(0, regex.Length - 1) + ")$/";
             return regex.Substring(0, regex.Length - 1) + ")";
         }
 
@@ -100,6 +100,8 @@ namespace MagicExpression
             ranges.Add((to + 1).ToString(CultureInfo.InvariantCulture));
             return ranges;
         }
+
+        #endregion  
     }
 
     public class RangeException: Exception
