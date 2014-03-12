@@ -17,8 +17,8 @@
 		{
 			this.Magic
 			.Alternative(
-				Magex.CreateNew().String("hello"),
-				Magex.CreateNew().String("world"));
+				Magex.New().String("hello"),
+				Magex.New().String("world"));
 
 			this.AssertIsMatching("hello", "world");
 			this.AssertIsNotMatching("hellword");
@@ -39,15 +39,15 @@
 		{
 			this.Magic
 				.Alternative(
-					Magex.CreateNew().String("pizza ")
+					Magex.New().String("pizza ")
 						.Alternative(
-							Magex.CreateNew().String("beef"),
-							Magex.CreateNew().String("chorizo")
+							Magex.New().String("beef"),
+							Magex.New().String("chorizo")
 						),
-					Magex.CreateNew().String("burger ")
+					Magex.New().String("burger ")
 						.Alternative(
-						Magex.CreateNew().String("fries"),
-						Magex.CreateNew().String("potatoes")));
+						Magex.New().String("fries"),
+						Magex.New().String("potatoes")));
 
 			this.AssertIsMatching("pizza beef", "burger potatoes");
 			this.AssertIsNotMatching("pizza fries", "burger chorizo");
@@ -58,8 +58,8 @@
 		{
 			this.Magic
 				.Alternative(
-					Magex.CreateNew().String("pizza"),
-					Magex.CreateNew().String("burger")
+					Magex.New().String("pizza"),
+					Magex.New().String("burger")
 				).Repeat.Times(2);
 
 			this.AssertIsMatching("pizzapizza", "pizzaburger", "burgerpizza");

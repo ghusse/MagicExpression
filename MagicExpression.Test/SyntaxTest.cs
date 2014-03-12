@@ -10,7 +10,7 @@
 		[TestMethod]
 		public void Simple()
 		{
-			var emailDetector = Magex.CreateNew();
+			var emailDetector = Magex.New();
 			string allowedChars = @"!#$%&'*+/=?^_`{|}~-";
 
 			emailDetector

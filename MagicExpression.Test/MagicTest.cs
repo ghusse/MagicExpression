@@ -38,7 +38,7 @@
 
 		public virtual void Setup()
 		{
-			this.Magic = Magex.CreateNew();
+			this.Magic = Magex.New();
 		}
 	}
 }

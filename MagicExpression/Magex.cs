@@ -25,7 +25,7 @@
 
 		#region Static constructor
 
-		public static IChainable CreateNew()
+		public static IChainable New()
 		{
 			return new Magex();
 		}
@@ -210,7 +210,7 @@
 
 		public IRepeatable Group(Action<IChainable> expression)
 		{
-			var magex = Magex.CreateNew();
+			var magex = Magex.New();
 			expression(magex);
 
 			return this.Group(magex);
@@ -218,7 +218,7 @@
 
 		public IRepeatable Capture(Action<IChainable> expression)
 		{
-			var magex = Magex.CreateNew();
+			var magex = Magex.New();
 			expression(magex);
 
 			return this.Capture(magex);
@@ -226,7 +226,7 @@
 
 		public IRepeatable CaptureAs(string name, Action<IChainable> expression)
 		{
-			var magex = Magex.CreateNew();
+			var magex = Magex.New();
 			expression(magex);
 
 			return this.CaptureAs(name, magex);
@@ -248,7 +248,7 @@
 
 			for (var i = 0; i < alternatives.Length; i++)
 			{
-				var possibility = Magex.CreateNew();
+				var possibility = Magex.New();
 				alternatives[i](possibility);
 				constructedAlternatives[i] = possibility;
 			}
