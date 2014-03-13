@@ -18,14 +18,8 @@ MagicExpression for muggles
     // -?[0-9]*\.[0-9]+
     var floatingPointNumberDetector = new Regex(magicWand.Expression);
 
-    Assert.IsTrue(floatingPointNumberDetector.IsMatch("1.234"));
-    Assert.IsTrue(floatingPointNumberDetector.IsMatch("-1.234"));
-    Assert.IsTrue(floatingPointNumberDetector.IsMatch("0.0"));
-
-    Assert.IsFalse(floatingPointNumberDetector.IsMatch("0"));
-    Assert.IsFalse(floatingPointNumberDetector.IsMatch("1,234"));
-    Assert.IsFalse(floatingPointNumberDetector.IsMatch("0x234"));
-    Assert.IsFalse(floatingPointNumberDetector.IsMatch("#1a4f66"));
+    // Will match "1.234", "-1.234", "0.0"
+    // Will not match "0" "1,234", "0x234", "#1a4f66"
 
 ### Add content to the MagicExpression
 
@@ -89,10 +83,8 @@ Usage
 
     var badHtmlTagDetector = new Regex(magicWand.Expression);
 
-    Assert.IsTrue(badHtmlTagDetector.IsMatch("<strong>hello world</strong>"));
-    Assert.IsTrue(badHtmlTagDetector.IsMatch("<h1>A title</h1>"));
-
-    Assert.IsFalse(badHtmlTagDetector.IsMatch("<h1>A tag mismatch</strong>"));
+    // Will match "<strong>hello world</strong>", "<h1>A title</h1>"
+    // Will not match "<h1>A tag mismatch</strong>"
 
 * `Group(IExpressionElement)` Non capturing group
 * `Group(Action<IMagex>)` Non capturing group defined with a lambda
@@ -124,10 +116,8 @@ Usage
 
     var alternativeDetector = new Regex(notSoMagicWand.Expression);
 
-    Assert.IsTrue(alternativeDetector.IsMatch("a"));
-    Assert.IsTrue(alternativeDetector.IsMatch("b"));
-
-    Assert.IsFalse(alternativeDetector.IsMatch("c"));
+    // Will match "a", "b"
+    // Will not match "c"
 
 * `Alternative(params IExpressionElement[])` Matches the string if it corresponds to one alternative
 * `Alternative(params Action<IMagex>[])` Same thing with 
@@ -139,18 +129,10 @@ Usage
              .Group(x => x.Character().Repeat.Any().Lazy())
              .Character('>');
 
-    var lazyDetector = new Regex(lazyMagicWand.Expression);
-    var matchCollection = lazyDetector.Matches("<em>something</em>");
-    Assert.AreEqual(2, matchCollection.Count);
-
     // The group will match the larges ensemble possible, e.g. the whole "<em>something</em>"
     var greedyMagicWand = Magex.New().Character('<')
              .Group(x => x.Character().Repeat.Any())
              .Character('>');
-
-    var greedyDetector = new Regex(greedyMagicWand.Expression);
-    matchCollection = greedyDetector.Matches("<em>something</em>");
-    Assert.AreEqual(1, matchCollection.Count);
           
 * `Lazy()` Makes the detection lazy instead of greedy (default)          
           
@@ -164,12 +146,8 @@ Usage
 
     var detector = new Regex(magicWand.Expression);
 
-    Assert.IsTrue(detector.IsMatch("0"));
-    Assert.IsTrue(detector.IsMatch("9"));
-    Assert.IsTrue(detector.IsMatch("20"));
-    Assert.IsTrue(detector.IsMatch("42"));
-    Assert.IsFalse(detector.IsMatch("43"));
-    Assert.IsFalse(detector.IsMatch("52"));
+    // Will match "0", "9", "20", "42"
+    // Will not match "43", "52"
 
 * 'Literal(string)' inserts a regular expression
 
