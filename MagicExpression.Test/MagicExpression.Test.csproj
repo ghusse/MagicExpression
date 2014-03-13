@@ -59,6 +59,7 @@
     <Compile Include="MagicTest.cs" />
     <Compile Include="LiteralTest.cs" />
     <Compile Include="AlternativeTest.cs" />
+    <Compile Include="DocTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MagicExpression\MagicExpression.csproj">

@@ -1,7 +1,6 @@
 ﻿namespace MagicExpression.Test
 {
-	using System;
-	using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 	[TestClass]
 	public class LiteralTest : MagicTest
