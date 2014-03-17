@@ -5,12 +5,6 @@
 	{
 		private IExpressionElement element;
 
-		public NamedGroup(string name, string regex)
-			: base(name)
-		{
-			this.element = new Literal(regex);
-		}
-
 		public NamedGroup(string name, IExpressionElement grouped)
 			: base(name)
 		{

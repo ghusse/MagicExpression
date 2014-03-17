@@ -8,11 +8,6 @@
 			this.Grouped = element;
 		}
 
-		public CapturingGroup(string regex)
-			: this(new Literal(regex))
-		{
-		}
-
 		public virtual string Expression
 		{
 			get

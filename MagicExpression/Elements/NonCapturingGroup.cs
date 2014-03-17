@@ -3,11 +3,6 @@
 
 	public class NonCapturingGroup : CapturingGroup
 	{
-		public NonCapturingGroup(string regex)
-			: base(regex)
-		{
-		}
-
 		public NonCapturingGroup(IExpressionElement grouped)
 			: base(grouped)
 		{
