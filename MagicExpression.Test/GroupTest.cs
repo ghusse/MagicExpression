@@ -71,6 +71,13 @@
 		}
 
 		[TestMethod]
+		[ExpectedException(typeof(InvalidOperationException))]
+		public void InvalidNameTest()
+		{
+			this.Magic.CaptureAs("a.b", x => x.String("a"));
+		}
+
+		[TestMethod]
 		public void GroupRepetitionTest()
 		{
 			this.Magic.Character('a')
