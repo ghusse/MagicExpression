@@ -58,24 +58,24 @@ namespace MagicExpression
 
 			var ranges = new List<string> { from.ToString(CultureInfo.InvariantCulture) };
 
-            while (true)
-            {
-                next += increment;
-                if (next + increment > to)
-                {
-                    if (next <= to)
-                        ranges.Add(next.ToString(CultureInfo.InvariantCulture));
-                    increment /= 10;
-                    higher = false;
-                }
-                else
-                {
-                    if (next % (increment * 10) == 0)
-                    {
-                        ranges.Add(next.ToString(CultureInfo.InvariantCulture));
-                        increment = increment * 10;
-                    }
-                }
+			while (true)
+			{
+				next += increment;
+				if (next + increment > to)
+				{
+					if (next <= to)
+						ranges.Add(next.ToString(CultureInfo.InvariantCulture));
+					increment /= 10;
+					higher = false;
+				}
+				else
+				{
+					if (next % (increment * 10) == 0)
+					{
+						ranges.Add(next.ToString(CultureInfo.InvariantCulture));
+						increment = increment * 10;
+					}
+				}
 
 				if (!higher && increment < 10)
 					break;

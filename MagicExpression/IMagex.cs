@@ -1,6 +1,7 @@
 ﻿namespace MagicExpression
 {
 	using System;
+	using System.Text.RegularExpressions;
 
 	public interface IMagex : IExpressionElement
 	{
@@ -35,5 +36,11 @@
 
 		IRepeatable BackReference(string name);
 		IRepeatable BackReference(uint index);
+
+		#region Properties
+		RegexOptions Options { get; set; }
+
+		Regex Regex { get; }
+		#endregion
 	}
 }
