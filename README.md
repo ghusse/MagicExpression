@@ -142,7 +142,8 @@ Usage
 
     var magicWand = Magex.New();
 
-    magicWand.Literal(Magex.NumericRange(0, 42));
+    // Produces an expression of type (?<![1-9])([0-9]|[1-4][0-2])(?![0-9])
+    magicWand.Builder.NumericRange(0, 42);
 
     var detector = new Regex(magicWand.Expression);
 

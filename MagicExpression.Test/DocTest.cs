@@ -120,7 +120,7 @@
         [TestMethod]
         public void DocRange()
         {
-					var magicWand = Magex.New();
+		  var magicWand = Magex.New();
 
           magicWand.Builder.NumericRange(0, 42);
 
