@@ -52,27 +52,27 @@ namespace MagicExpressionBoilerplate.Test
 		[TestMethod]
 		public void TwoDigitRange()
 		{
-			const ulong from = 0, to = 99;
+			const ulong from = 10, to = 99;
 
-			this.AssertIsMatching(from, to, new[] { "0", "9", "99" });
+			this.AssertIsMatching(from, to, new[] { "10", "19", "99" });
 			this.AssertIsNotMatching(from, to, new[] { "100", "999" });
 		}
 
 		[TestMethod]
 		public void ThreeDigitRange()
 		{
-			const ulong from = 0, to = 999;
+			const ulong from = 21, to = 999;
 
-			this.AssertIsMatching(from, to, new[] { "0", "9", "99", "999" });
+			this.AssertIsMatching(from, to, new[] { "21", "39", "99", "999" });
 			this.AssertIsNotMatching(from, to, new[] { "1000", "9999" });
 		}
 
 		[TestMethod]
 		public void FourDigitRange()
 		{
-			const ulong from = 0, to = 9999;
+			const ulong from = 42, to = 9999;
 
-			this.AssertIsMatching(from, to, new[] { "0", "9", "99", "999", "9999" });
+			this.AssertIsMatching(from, to, new[] { "42", "99", "999", "9999" });
 			this.AssertIsNotMatching(from, to, new[] { "10000", "99999" });
 		}
 

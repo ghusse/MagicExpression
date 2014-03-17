@@ -73,7 +73,7 @@ namespace MagicExpression
                     if (next % (increment * 10) == 0)
                     {
                         ranges.Add(next.ToString(CultureInfo.InvariantCulture));
-                        increment = higher ? increment * 10 : increment / 10;
+                        increment = increment * 10;
                     }
                 }
 
