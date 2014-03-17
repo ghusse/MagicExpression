@@ -20,16 +20,33 @@ namespace MagicExpression.Test
 			this.AssertIsNotMatching("43", "52");
     }
 
-		[Ignore]	//TODO: currently doesn't work because of the \bEXP\b added by the range builder
-							//TODO: also doesn't allow leading zeros
-							//TODO: also shouldn't allow leading/trailing numbers
 		[TestMethod]
-		public void RangeBetweenTest()
+		public void RangeInBetween()
 		{
 			this.Magic.Character('a').Builder.NumericRange(0, 42).Character('a');
 
 			this.AssertIsMatching("a0a", "a9a", "a20a", "a42a");
-			this.AssertIsNotMatching("", "%", "a9b", "b52a");
+			this.AssertIsNotMatching("", "%", "a9b", "b52a", "4242");
+		}
+
+		[Ignore] //TODO: implement to support leading zeros
+		[TestMethod]
+		public void RangeWithLeadingZeros()
+		{
+			//this.Magic.Builder.NumericRange(0, 42, Options.AllowLeadingZeroes);
+
+			this.AssertIsMatching("001");
+			this.AssertIsNotMatching("0001000");
+		}
+
+		[Ignore] //TODO: implement to support leading zeros
+		[TestMethod]
+		public void RangeInBetweenWithLeadingZeros()
+		{
+			//this.Magic.Character('a').Builder.NumericRange(0, 42, Options.AllowLeadingZeroes).Character('a');
+
+			this.AssertIsMatching("a001a");
+			this.AssertIsNotMatching("a0001000a");
 		}
   }
 }

@@ -9,6 +9,9 @@ namespace MagicExpression
 	/// </summary>
 	public static class MagexBuilder
 	{
+		private const string NoLeadingNumbers = "(?<![0-9])";
+		private const string NoTrailingNumbers = "(?![0-9])";
+
 		/// <summary>
 		/// Create a regex valid numeric range
 		/// </summary>
@@ -21,7 +24,7 @@ namespace MagicExpression
 			if (from > to)
 				throw new RangeException("Invalid range, from > to");
 
-			return string.Format(@"\b{0}\b", GetNumericRange(from, to));
+			return string.Format(@"{0}{1}{2}", NoLeadingNumbers, GetNumericRange(from, to), NoTrailingNumbers);
 		}
 
 		#region Range support functions
