@@ -35,5 +35,7 @@
 
 		IRepeatable BackReference(string name);
 		IRepeatable BackReference(uint index);
+
+		IBuilder Builder { get; }
 	}
 }

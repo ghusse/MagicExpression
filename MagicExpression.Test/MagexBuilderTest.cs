@@ -11,17 +11,13 @@ namespace MagicExpression.Test
 			base.Setup();
 		}
 
-        [TestMethod]
-        public void Range()
-        {
-            this.Magic.Literal(Magex.NumericRange(0, 42));
+    [TestMethod]
+    public void Range()
+    {
+			this.Magic.Builder.NumericRange(0, 42);
 
-            this.AssertIsMatching("0");
-            this.AssertIsMatching("9");
-            this.AssertIsMatching("20");
-            this.AssertIsMatching("42");
-            this.AssertIsNotMatching("43");
-            this.AssertIsNotMatching("52");
-        }
+			this.AssertIsMatching("0", "9", "20", "42");
+			this.AssertIsNotMatching("43", "52");
     }
+  }
 }

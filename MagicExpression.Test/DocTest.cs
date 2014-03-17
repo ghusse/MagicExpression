@@ -120,18 +120,18 @@
         [TestMethod]
         public void DocRange()
         {
-            var magicWand = Magex.New();
+					var magicWand = Magex.New();
 
-            magicWand.Literal(Magex.NumericRange(0, 42));
+          magicWand.Builder.NumericRange(0, 42);
 
-            var detector = new Regex(magicWand.Expression);
+          var detector = new Regex(magicWand.Expression);
 
-            Assert.IsTrue(detector.IsMatch("0"));
-            Assert.IsTrue(detector.IsMatch("9"));
-            Assert.IsTrue(detector.IsMatch("20"));
-            Assert.IsTrue(detector.IsMatch("42"));
-            Assert.IsFalse(detector.IsMatch("43"));
-            Assert.IsFalse(detector.IsMatch("52"));   
+          Assert.IsTrue(detector.IsMatch("0"));
+          Assert.IsTrue(detector.IsMatch("9"));
+          Assert.IsTrue(detector.IsMatch("20"));
+          Assert.IsTrue(detector.IsMatch("42"));
+          Assert.IsFalse(detector.IsMatch("43"));
+          Assert.IsFalse(detector.IsMatch("52"));   
         }
     }
 }

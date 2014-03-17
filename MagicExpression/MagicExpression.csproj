@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Characters.cs" />
+    <Compile Include="IBuilder.cs" />
     <Compile Include="MagexBuilder.cs" />
     <Compile Include="Elements\Alternative.cs" />
     <Compile Include="Elements\CapturingGroup.cs" />
@@ -59,7 +60,6 @@
     <Compile Include="ILasiness.cs" />
     <Compile Include="Magex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MagexStatics.cs" />
     <Compile Include="RegexCharacters.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
