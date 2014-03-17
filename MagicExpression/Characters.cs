@@ -24,4 +24,10 @@
 		UpperCaseLetter = 1 << 15,
 		LowerCaseLetter = 1 << 16
 	}
+
+    [Flags]
+    public enum RangeOptions
+    {
+        AllowLeadingZeroes = 0
+    }
 }

@@ -11,6 +11,7 @@ namespace MagicExpression
 	{
 		private const string NoLeadingNumbers = "(?<![0-9])";
 		private const string NoTrailingNumbers = "(?![0-9])";
+		private const string LeadingZeros = "0*";
 
 		/// <summary>
 		/// Create a regex valid numeric range
@@ -26,6 +27,14 @@ namespace MagicExpression
 
 			return string.Format(@"{0}{1}{2}", NoLeadingNumbers, GetNumericRange(from, to), NoTrailingNumbers);
 		}
+
+        public static string NumericRange(ulong from, ulong to, RangeOptions options)
+        {
+            if (from > to)
+                throw new RangeException("Invalid range, from > to");
+
+            return string.Format(@"{0}{1}{2}{3}", NoLeadingNumbers, LeadingZeros, GetNumericRange(from, to), NoTrailingNumbers);
+        }
 
 		#region Range support functions
 
