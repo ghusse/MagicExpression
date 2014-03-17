@@ -25,7 +25,7 @@
 
 		#region Static constructor
 
-		public static IChainable New()
+		public static IMagex New()
 		{
 			return new Magex();
 		}
@@ -125,13 +125,13 @@
 			return this;
 		}
 
-		public IChainable StartOfLine()
+		public IMagex StartOfLine()
 		{
 			this.expression.Add(new Literal("^"));
 			return this;
 		}
 
-		public IChainable EndOfLine()
+		public IMagex EndOfLine()
 		{
 			this.expression.Add(new Literal("$"));
 			return this;
@@ -141,7 +141,7 @@
 
 		#region String
 
-		public IChainable String(string val)
+		public IMagex String(string val)
 		{
 			this.expression.Add(new StringElement(val));
 			return this;
@@ -157,12 +157,12 @@
 			return this;
 		}
 
-		public IChainable Once()
+		public IMagex Once()
 		{
 			return this;
 		}
 
-		public IChainable Times(uint number)
+		public IMagex Times(uint number)
 		{
 			this.expression.Add(new Literal("{" + number.ToString() + "}"));
 			return this;
@@ -208,7 +208,7 @@
 			return this;
 		}
 
-		public IRepeatable Group(Action<IChainable> expression)
+		public IRepeatable Group(Action<IMagex> expression)
 		{
 			var magex = Magex.New();
 			expression(magex);
@@ -216,7 +216,7 @@
 			return this.Group(magex);
 		}
 
-		public IRepeatable Capture(Action<IChainable> expression)
+		public IRepeatable Capture(Action<IMagex> expression)
 		{
 			var magex = Magex.New();
 			expression(magex);
@@ -224,7 +224,7 @@
 			return this.Capture(magex);
 		}
 
-		public IRepeatable CaptureAs(string name, Action<IChainable> expression)
+		public IRepeatable CaptureAs(string name, Action<IMagex> expression)
 		{
 			var magex = Magex.New();
 			expression(magex);
@@ -242,7 +242,7 @@
 			return this;
 		}
 
-		public IRepeatable Alternative(params Action<IChainable>[] alternatives)
+		public IRepeatable Alternative(params Action<IMagex>[] alternatives)
 		{
 			IExpressionElement[] constructedAlternatives = new IExpressionElement[alternatives.Length];
 
@@ -260,7 +260,7 @@
 
 		#region Laziness
 
-		public IChainable Lazy()
+		public IMagex Lazy()
 		{
 			this.expression.Add(new Literal("?"));
 			return this;
@@ -286,7 +286,7 @@
 
 		#region Literal
 
-		public IChainable Literal(string regex)
+		public IMagex Literal(string regex)
 		{
 			this.expression.Add(new Literal(regex));
 			return this;

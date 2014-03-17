@@ -1,8 +1,8 @@
 ﻿namespace MagicExpression
 {
 
-	public interface ILasiness : IChainable
+	public interface ILasiness : IMagex
 	{
-		IChainable Lazy();
+		IMagex Lazy();
 	}
 }

@@ -2,7 +2,7 @@
 {
 	using System;
 
-	public interface IChainable : IExpressionElement
+	public interface IMagex : IExpressionElement
 	{
 		IRepeatable CharacterIn(Characters chars, string otherChars);
 		IRepeatable CharacterIn(Characters chars, params char[] otherChars);
@@ -14,24 +14,24 @@
 		IRepeatable CharacterNotIn(params char[] otherChars);
 		IRepeatable Character();
 
-		IChainable StartOfLine();
-		IChainable EndOfLine();
+		IMagex StartOfLine();
+		IMagex EndOfLine();
 
-		IChainable Literal(string regex);
+		IMagex Literal(string regex);
 
 		IRepeatable Group(IExpressionElement grouped);
 		IRepeatable Capture(IExpressionElement captured);
 		IRepeatable CaptureAs(string name, IExpressionElement captured);
 
-		IRepeatable Group(Action<IChainable> expression);
-		IRepeatable Capture(Action<IChainable> expression);
-		IRepeatable CaptureAs(string name, Action<IChainable> expression);
+		IRepeatable Group(Action<IMagex> expression);
+		IRepeatable Capture(Action<IMagex> expression);
+		IRepeatable CaptureAs(string name, Action<IMagex> expression);
 
-		IChainable String(string val);
+		IMagex String(string val);
 		IRepeatable Character(char theChar);
 
 		IRepeatable Alternative(params IExpressionElement[] alternatives);
-		IRepeatable Alternative(params Action<IChainable>[] alternatives);
+		IRepeatable Alternative(params Action<IMagex>[] alternatives);
 
 		IRepeatable BackReference(string name);
 		IRepeatable BackReference(uint index);

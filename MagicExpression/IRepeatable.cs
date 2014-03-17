@@ -1,7 +1,7 @@
 ﻿namespace MagicExpression
 {
 
-	public interface IRepeatable : IChainable
+	public interface IRepeatable : IMagex
 	{
 		IRepeat Repeat { get; }
 	}

@@ -52,7 +52,7 @@
     <Compile Include="Elements\NonCapturingGroup.cs" />
     <Compile Include="Elements\PossibleChars.cs" />
     <Compile Include="Elements\StringElement.cs" />
-    <Compile Include="IChainable.cs" />
+    <Compile Include="IMagex.cs" />
     <Compile Include="IExpressionElement.cs" />
     <Compile Include="IRepeat.cs" />
     <Compile Include="IRepeatable.cs" />

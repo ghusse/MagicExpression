@@ -5,7 +5,7 @@
 	{
 		public IndexedBackReference(uint index)
 		{
-			this.Expression = @"\k" + index.ToString();
+			this.Expression = @"\" + index.ToString();
 		}
 
 		public string Expression { get; private set; }

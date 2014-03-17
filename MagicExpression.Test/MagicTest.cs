@@ -10,7 +10,7 @@
 		{
 		}
 
-		protected IChainable Magic { get; set; }
+		protected IMagex Magic { get; set; }
 
 		protected void AssertIsMatching(params string[] strings)
 		{
