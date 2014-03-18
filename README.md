@@ -18,7 +18,7 @@ MagicExpression for muggles
     // -?[0-9]*\.[0-9]+
     var floatingPointNumberDetector = new Regex(magicWand.Expression);
 
-    // Will match "1.234", "-1.234", "0.0"
+    // Will match "1.234", "-1.234", "0.0", ".01"
     // Will not match "0" "1,234", "0x234", "#1a4f66"
 
 ### Add content to the MagicExpression

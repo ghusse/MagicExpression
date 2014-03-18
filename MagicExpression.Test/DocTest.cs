@@ -29,6 +29,7 @@
             Assert.IsTrue(floatingPointNumberDetector.IsMatch("1.234"));
             Assert.IsTrue(floatingPointNumberDetector.IsMatch("-1.234"));
             Assert.IsTrue(floatingPointNumberDetector.IsMatch("0.0"));
+            Assert.IsTrue(floatingPointNumberDetector.IsMatch(".01"));
 
             Assert.IsFalse(floatingPointNumberDetector.IsMatch("0"));
             Assert.IsFalse(floatingPointNumberDetector.IsMatch("1,234"));
