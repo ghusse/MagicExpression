@@ -121,7 +121,7 @@
         [TestMethod]
         public void DocRange()
         {
-		  var magicWand = Magex.New();
+					var magicWand = Magex.New();
 
           magicWand.Builder.NumericRange(0, 42);
 
@@ -134,5 +134,109 @@
           Assert.IsFalse(detector.IsMatch("43"));
           Assert.IsFalse(detector.IsMatch("52"));   
         }
+
+				[TestMethod]
+				public void Hexadecimal()
+				{
+					// 0x34cde4
+					var magicWand = Magex.New();
+
+					magicWand
+						.Character('0')
+						.CharacterIn("xX")
+						.CharacterIn(Characters.Numeral, "abcdefABCDEF")
+						.Repeat.Times(6);
+
+					var detector = new Regex(magicWand.Expression);
+
+					Assert.IsTrue(detector.IsMatch("0x123456"));
+					Assert.IsTrue(detector.IsMatch("0x1a3b5C"));
+					Assert.IsFalse(detector.IsMatch(""));
+					Assert.IsFalse(detector.IsMatch("1x1"));
+					Assert.IsFalse(detector.IsMatch("1x1a3b5C"));
+					Assert.IsFalse(detector.IsMatch("1xxyzxyz"));
+					Assert.IsFalse(detector.IsMatch("0x1z3b5c"));
+				}
+
+				[TestMethod]
+				public void HexColor()
+				{
+					// #34cde4 or #54f
+					var magicWand = Magex.New();
+
+					magicWand
+						.Character('#')
+						.Alternative(
+							Magex.New().CharacterIn(Characters.Numeral, "abcdefABCDEF").Repeat.Times(6),
+							Magex.New().CharacterIn(Characters.Numeral, "abcdefABCDEF").Repeat.Times(3).EndOfLine());
+
+					var detector = new Regex(magicWand.Expression);
+
+					Assert.IsTrue(detector.IsMatch("#123456"));
+					Assert.IsTrue(detector.IsMatch("#123"));
+					Assert.IsTrue(detector.IsMatch("#1a3b5C"));
+					Assert.IsTrue(detector.IsMatch("#1a3"));
+					Assert.IsFalse(detector.IsMatch(""));
+					Assert.IsFalse(detector.IsMatch("#1"));
+					Assert.IsFalse(detector.IsMatch("#1a3b5Z"));
+					Assert.IsFalse(detector.IsMatch("#xyz"));
+					Assert.IsFalse(detector.IsMatch("#1z3"));
+				}
+
+				[TestMethod]
+				public void IpAddress()
+				{
+					var magicWand = Magex.New();
+
+					magicWand
+						.Builder.NumericRange(1, 255).Character('.')
+						.Builder.NumericRange(0, 255).Character('.')
+						.Builder.NumericRange(0, 255).Character('.')
+						.Builder.NumericRange(0, 255);
+
+					var detector = new Regex(magicWand.Expression);
+
+					Assert.IsTrue(detector.IsMatch("73.60.124.136"));
+
+					Assert.IsFalse(detector.IsMatch(""));
+					Assert.IsFalse(detector.IsMatch("0.60.124.136"));
+					Assert.IsFalse(detector.IsMatch("0.60.124.136."));
+					Assert.IsFalse(detector.IsMatch(".0.60.124.136"));
+					Assert.IsFalse(detector.IsMatch("73-60.124.136"));
+					Assert.IsFalse(detector.IsMatch("256.60.124.276"));
+					Assert.IsFalse(detector.IsMatch("0000000000001.0000000023.00000414.000022"));
+				}
+
+				[TestMethod]
+				public void Url()
+				{
+					var magicWand = Magex.New();
+
+					magicWand.Options = RegexOptions.IgnoreCase;
+
+					const string allowedChars = @"!#$%&'*+/=?^_`{|}~-";
+
+					magicWand
+						.Alternative(
+							Magex.New().String("http"),
+							Magex.New().String("ftp"))
+						.Character('s').Repeat.AtMostOnce()
+						.String("://")
+						.Group(Magex.New().String("www.")).Repeat.AtMostOnce()
+						.CharacterIn(Characters.Alphanumeric, allowedChars);
+
+					var detector = new Regex(magicWand.Expression);
+
+					Assert.IsTrue(detector.IsMatch("http://url.com"));
+					Assert.IsTrue(detector.IsMatch("https://url.com"));
+					Assert.IsTrue(detector.IsMatch("http://www.url.com"));
+					Assert.IsTrue(detector.IsMatch("https://www.url.com"));
+					Assert.IsTrue(detector.IsMatch("ftp://url.com"));
+					Assert.IsTrue(detector.IsMatch("ftps://url.com"));
+
+					Assert.IsFalse(detector.IsMatch(""));
+					Assert.IsFalse(detector.IsMatch("0.60.124.136"));
+
+				}
     }
 }
