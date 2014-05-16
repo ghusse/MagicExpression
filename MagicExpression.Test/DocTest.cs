@@ -238,5 +238,28 @@
 					Assert.IsFalse(detector.IsMatch("0.60.124.136"));
 
 				}
+
+				[TestMethod]
+				public void TestIPv6()
+				{
+					// 2001:0db8:85a3:08d3:1319:8a2e:0370:7344
+
+					var magicwand = Magex.New();
+
+					const string hexChars = "0123456789abcdefABCDEF";
+					magicwand
+						.Group(x => x.CharacterIn(hexChars).Repeat.Between(0, 4).Character(':'))
+						.Repeat.Times(7)
+						.CharacterIn(hexChars).Repeat.Times(4)
+						.EndOfLine();
+
+					var detector = new Regex(magicwand.Expression);
+
+					Assert.IsTrue(detector.IsMatch("2001:0db8:85a3:08d3:1319:8a2e:0370:7344"), "Standard case");
+					Assert.IsTrue(detector.IsMatch("2001:db8:85a3:8d3:1319:8a2e:370:7344"), "No leading zeroes");
+					Assert.IsFalse(detector.IsMatch("20r1:0db8:85m3:08d3:1319:8k2e:0370:7l44"), "Illegal characters");
+					Assert.IsFalse(detector.IsMatch("2001:0db8:helloworld:0370:7l44"), "Too long block + illegal characters");
+					Assert.IsFalse(detector.IsMatch("2001:0db8:85a3:08d3:1319:8a2e:0370"), "Too few blocks");
+				}
     }
 }
