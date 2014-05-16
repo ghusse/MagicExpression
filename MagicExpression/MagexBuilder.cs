@@ -28,13 +28,13 @@ namespace MagicExpression
 			return string.Format(@"{0}{1}{2}", NoLeadingNumbers, GetNumericRange(from, to), NoTrailingNumbers);
 		}
 
-        public static string NumericRange(ulong from, ulong to, RangeOptions options)
-        {
-            if (from > to)
-                throw new RangeException("Invalid range, from > to");
+    public static string NumericRange(ulong from, ulong to, RangeOptions options)
+    {
+        if (from > to)
+            throw new RangeException("Invalid range, from > to");
 
-            return string.Format(@"{0}{1}{2}{3}", NoLeadingNumbers, LeadingZeros, GetNumericRange(from, to), NoTrailingNumbers);
-        }
+        return string.Format(@"{0}{1}{2}{3}", NoLeadingNumbers, LeadingZeros, GetNumericRange(from, to), NoTrailingNumbers);
+    }
 
 		#region Range support functions
 
