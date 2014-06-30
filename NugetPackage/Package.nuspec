@@ -2,14 +2,14 @@
 <package >
   <metadata>
     <id>MagicExpression</id>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <authors>Guillaume Gautreau, Timothée Bourguignon</authors>
     <owners>Guillaume Gautreau, Timothée Bourguignon</owners>
     <projectUrl>https://github.com/ghusse/MagicExpression</projectUrl>
     <licenseUrl>https://github.com/ghusse/MagicExpression/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A simple C# DSL to ease usage of Regular Expression for those who don't want to fight with them.</description>
-    <releaseNotes>Added support for literals</releaseNotes>
+    <releaseNotes>Lots of internal refactoring, revamp of the Range function and some examples</releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>C# RegularExpression Regex MagicExpression Magic</tags>
   </metadata>
