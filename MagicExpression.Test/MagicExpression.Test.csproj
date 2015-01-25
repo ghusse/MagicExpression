@@ -54,7 +54,6 @@
     <Compile Include="BackReferenceTest.cs" />
     <Compile Include="MagexBuilderTest.cs" />
     <Compile Include="RepetitionTest.cs" />
-    <Compile Include="ReverseEngineeringTest.cs" />
     <Compile Include="SyntaxTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CharTest.cs" />

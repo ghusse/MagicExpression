@@ -53,21 +53,44 @@ namespace MagicExpression.ReverseEngineering
         {
             var parts = new List<IExpression>(0);
 
-            // Search for character sets
+            // Search for all the known character sets
             foreach (var set in RegexCharacters.KnownSets)
             {
-                var startIndex = this.RegularExpression.IndexOf(set.Value);
+                var done = false;
+                var startIndex = 0;
+                while (!done)
+                {
+                    // Find the first occurence
+                    startIndex = this.RegularExpression.IndexOf(set.Value, startIndex);
 
-                // If the pattern was found
-                if (startIndex == 0 || 
-                    (startIndex >= 1 && !String.IsNullOrEmpty(this.RegularExpression) && this.RegularExpression[startIndex - 1] != '\\'))
-                    parts.Add(new Leaf(startIndex, startIndex + set.Value.Length, set.Key));
+                    // If not found => exit
+                    if (startIndex == -1)
+                    {
+                        done = true;
+                        continue;
+                    }
+
+                    // If the pattern was found (and is not after an escaping character)
+                    if (startIndex == 0 || (startIndex > 0 && this.RegularExpression[startIndex - 1] != '\\'))
+                        parts.Add(new Leaf(startIndex, startIndex + set.Value.Length, set.Key));
+                    
+                    // Update the index
+                    startIndex += set.Value.Length;
+
+                    // If reached the end of the string
+                    if (startIndex > this.RegularExpression.Length)
+                        done = true;
+                }
             }
 
+            // Search for capturing groups
 
 
 
-            // TODO: Potentially interpreted some things in two different ways...
+            // Orderby startIndex 
+            parts = parts.OrderBy(x => (x as Leaf).StartIndex).ToList<IExpression>();
+
+            // TODO: Handle superimposed elements
 
             return parts;
         }

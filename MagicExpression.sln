@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicExpression.Test", "Mag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicExpressionBoilerplate.Test", "MagicExpressionBoilerplate.Test\MagicExpressionBoilerplate.Test.csproj", "{81760524-F759-42C0-8716-B61FAF55C6F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicExpressionReverse.Test", "MagicExpressionReverse.Test\MagicExpressionReverse.Test.csproj", "{FFB00300-915F-47B6-80F5-B82A5FA40CB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{81760524-F759-42C0-8716-B61FAF55C6F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81760524-F759-42C0-8716-B61FAF55C6F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81760524-F759-42C0-8716-B61FAF55C6F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFB00300-915F-47B6-80F5-B82A5FA40CB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFB00300-915F-47B6-80F5-B82A5FA40CB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFB00300-915F-47B6-80F5-B82A5FA40CB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFB00300-915F-47B6-80F5-B82A5FA40CB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
