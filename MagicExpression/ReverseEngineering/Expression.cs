@@ -53,46 +53,52 @@ namespace MagicExpression.ReverseEngineering
         {
             var parts = new List<IExpression>(0);
 
-            // Search for all the known character sets
-            foreach (var set in RegexCharacters.KnownSets)
-            {
-                var done = false;
-                var startIndex = 0;
-                while (!done)
-                {
-                    // Find the first occurence
-                    startIndex = this.RegularExpression.IndexOf(set.Value, startIndex);
-
-                    // If not found => exit
-                    if (startIndex == -1)
-                    {
-                        done = true;
-                        continue;
-                    }
-
-                    // If the pattern was found (and is not after an escaping character)
-                    if (startIndex == 0 || (startIndex > 0 && this.RegularExpression[startIndex - 1] != '\\'))
-                        parts.Add(new Leaf(startIndex, startIndex + set.Value.Length, set.Key));
-                    
-                    // Update the index
-                    startIndex += set.Value.Length;
-
-                    // If reached the end of the string
-                    if (startIndex > this.RegularExpression.Length)
-                        done = true;
-                }
-            }
-
-            // Search for capturing groups
-
-
-
+            SearchForKnownSets(parts);
+            
             // Orderby startIndex 
             parts = parts.OrderBy(x => (x as Leaf).StartIndex).ToList<IExpression>();
 
             // TODO: Handle superimposed elements
+            // ...
 
             return parts;
+        }
+
+        private void SearchForKnownSets(List<IExpression> parts)
+        {
+            foreach (var segment in RegexParts.Segments)
+            {
+                SearchForSegment(parts, segment.Key, segment.Value);
+            }
+        }
+
+        private void SearchForSegment(List<IExpression> parts, string key, string value)
+        {
+            var done = false;
+            var startIndex = 0;
+            while (!done)
+            {
+                // Find the first occurence
+                startIndex = this.RegularExpression.IndexOf(value, startIndex);
+
+                // If not found => exit
+                if (startIndex == -1)
+                {
+                    done = true;
+                    continue;
+                }
+
+                // If the pattern was found (and is not after an escaping character)
+                if (startIndex == 0 || (startIndex > 0 && this.RegularExpression[startIndex - 1] != '\\'))
+                    parts.Add(new Leaf(startIndex, startIndex + value.Length, key));
+
+                // Update the index
+                startIndex += value.Length;
+
+                // If reached the end of the string
+                if (startIndex > this.RegularExpression.Length)
+                    done = true;
+            }
         }
     }
 
@@ -100,15 +106,15 @@ namespace MagicExpression.ReverseEngineering
     {
         public int StartIndex { get; set; }
         public int StopIndex { get; set; }
-        public Characters CharacterSet { get; set; }
+        public string CharacterSet { get; set; }
         public string RegularExpression { get; set; }
 
-        public Leaf(int startIndex, int stopIndex, Characters characterSet)
+        public Leaf(int startIndex, int stopIndex, string characterSet)
         {
             this.StartIndex = startIndex;
             this.StopIndex = stopIndex;
             this.CharacterSet = characterSet;
-            this.RegularExpression = RegexCharacters.Get(characterSet);
+            this.RegularExpression = RegexParts.Segments[characterSet];
         }
     }
 }

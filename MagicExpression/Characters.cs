@@ -1,7 +1,7 @@
 ﻿namespace MagicExpression
 {
 	using System;
-
+    
 	[Flags]
 	public enum Characters
 	{

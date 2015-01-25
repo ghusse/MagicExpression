@@ -16,6 +16,8 @@ namespace MagicExpressionReverse.Test
         {
             var expression = @"(?:abc)";
             var reverseBuilder = new ReverseBuilder(expression);
+            
+            // Soooo wrong currently takes the groups as well "(" and ")"
             Assert.AreEqual(5, reverseBuilder.Expression.Parts.Count);
         }
     }

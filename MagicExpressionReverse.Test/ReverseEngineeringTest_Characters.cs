@@ -26,7 +26,7 @@ namespace MagicExpressionReverse.Test
             var reverseBuilder = new ReverseBuilder(expression);
             var leaf = reverseBuilder.Expression.Parts[0] as Leaf;
             Assert.IsNotNull(leaf);
-            Assert.AreEqual(Characters.Numeral, leaf.CharacterSet);
+            Assert.AreEqual(RegexParts.CharactersNumeral, leaf.CharacterSet);
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace MagicExpressionReverse.Test
             var reverseBuilder = new ReverseBuilder(expression);
             var leaf = reverseBuilder.Expression.Parts[0] as Leaf;
             Assert.IsNotNull(leaf);
-            Assert.AreEqual(Characters.WhiteSpace, leaf.CharacterSet);
+            Assert.AreEqual(RegexParts.CharactersWhiteSpaces, leaf.CharacterSet);
         }
 
         [TestMethod]
@@ -46,10 +46,10 @@ namespace MagicExpressionReverse.Test
             var reverseBuilder = new ReverseBuilder(expression);
             var leaf1 = reverseBuilder.Expression.Parts[0] as Leaf;
             Assert.IsNotNull(leaf1);
-            Assert.AreEqual(Characters.Numeral, leaf1.CharacterSet);
+            Assert.AreEqual(RegexParts.CharactersNumeral, leaf1.CharacterSet);
             var leaf2 = reverseBuilder.Expression.Parts[1] as Leaf;
             Assert.IsNotNull(leaf2);
-            Assert.AreEqual(Characters.WhiteSpace, leaf2.CharacterSet);
+            Assert.AreEqual(RegexParts.CharactersWhiteSpaces, leaf2.CharacterSet);
         }
 
         [TestMethod]
@@ -60,15 +60,15 @@ namespace MagicExpressionReverse.Test
 
             var leaf1 = reverseBuilder.Expression.Parts[0] as Leaf;
             Assert.IsNotNull(leaf1);
-            Assert.AreEqual(Characters.Numeral, leaf1.CharacterSet);
+            Assert.AreEqual(RegexParts.CharactersNumeral, leaf1.CharacterSet);
  
             var leaf2 = reverseBuilder.Expression.Parts[1] as Leaf;
             Assert.IsNotNull(leaf2);
-            Assert.AreEqual(Characters.WhiteSpace, leaf2.CharacterSet);
+            Assert.AreEqual(RegexParts.CharactersWhiteSpaces, leaf2.CharacterSet);
 
             var leaf3 = reverseBuilder.Expression.Parts[2] as Leaf;
             Assert.IsNotNull(leaf3);
-            Assert.AreEqual(Characters.Numeral, leaf3.CharacterSet);
+            Assert.AreEqual(RegexParts.CharactersNumeral, leaf3.CharacterSet);
         }
 
         [TestMethod]
