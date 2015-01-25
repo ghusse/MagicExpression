@@ -12,7 +12,7 @@
 		{
 			get
 			{
-				return "(" + this.Grouped.Expression + ")";
+                return RegexParts.GroupBegin + this.Grouped.Expression + RegexParts.GroupEnd;
 			}
 		}
 

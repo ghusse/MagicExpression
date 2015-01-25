@@ -10,5 +10,11 @@ namespace MagicExpression
         public static string AlternativeBegin = "(?:";
         public static string AlternativeSeparator = "|";
         public static string AlternativeEnd = ")";
+
+        public static string GroupBegin = "(";
+        public static string GroupEnd = ")";
+        
+        
+
     }
 }
