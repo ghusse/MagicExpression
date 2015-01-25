@@ -61,6 +61,7 @@
     <Compile Include="Magex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegexCharacters.cs" />
+    <Compile Include="RegexParts.cs" />
     <Compile Include="ReverseEngineering\Expression.cs" />
     <Compile Include="ReverseEngineering\ReverseBuilder.cs" />
     <Compile Include="ReverseEngineering\Set.cs" />
