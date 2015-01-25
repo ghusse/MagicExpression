@@ -18,19 +18,19 @@
 			{
 				StringBuilder sb = new StringBuilder();
 
-				sb.Append("(?:");
+				sb.Append(RegexParts.AlternativeBegin);
 
 				for (var i = 0; i < elements.Count; i++)
 				{
 					if (i > 0)
 					{
-						sb.Append("|");
+                        sb.Append(RegexParts.AlternativeSeparator);
 					}
 
 					sb.Append(this.elements[i].Expression);
 				}
 
-				sb.Append(")");
+                sb.Append(RegexParts.AlternativeEnd);
 
 				return sb.ToString();
 			}
