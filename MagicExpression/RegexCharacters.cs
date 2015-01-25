@@ -1,8 +1,9 @@
 ﻿namespace MagicExpression
 {
-	using System.Linq;
-	using System.Text;
-	using System.Text.RegularExpressions;
+	using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 
 	public static class RegexCharacters
 	{
@@ -13,23 +14,8 @@
 		{
 			StringBuilder result = new StringBuilder();
 
-			AddIf(chars, Characters.Alphanumeric, @"\w", result);
-			AddIf(chars, Characters.NonAlphanumeric, @"\W", result);
-			AddIf(chars, Characters.Numeral, @"\d", result);
-			AddIf(chars, Characters.NonNumeral, @"\D", result);
-			AddIf(chars, Characters.WhiteSpace, @"\s", result);
-			AddIf(chars, Characters.NonWhiteSpace, @"\S", result);
-			AddIf(chars, Characters.CarriageReturn, @"\r", result);
-			AddIf(chars, Characters.NewLine, @"\n", result);
-			AddIf(chars, Characters.FormFeed, @"\f", result);
-			AddIf(chars, Characters.Tab, @"\t", result);
-			AddIf(chars, Characters.VerticalTab, @"\v", result);
-			AddIf(chars, Characters.Bell, @"\a", result);
-			AddIf(chars, Characters.BackSpace, @"\b", result);
-			AddIf(chars, Characters.Escape, @"\e", result);
-			AddIf(chars, Characters.Letter, @"a-zA-Z", result);
-			AddIf(chars, Characters.UpperCaseLetter, @"A-Z", result);
-			AddIf(chars, Characters.LowerCaseLetter, @"a-z", result);
+            foreach(var set in knownSets)
+                AddIf(chars, set.Key, set.Value, result);
 
 			return result.ToString();
 		}
@@ -68,5 +54,27 @@
 				result.Append(testedString);
 			}
 		}
+
+        public static IDictionary<Characters, string> KnownSets { get { return knownSets; } }
+        private static IDictionary<Characters, string> knownSets = new Dictionary<Characters, string>()
+        {
+            {Characters.Alphanumeric, @"\w"},
+            {Characters.NonAlphanumeric, @"\W"},
+            {Characters.Numeral, @"\d"},
+            {Characters.NonNumeral, @"\D"},
+            {Characters.WhiteSpace, @"\s"},
+            {Characters.NonWhiteSpace, @"\S"},
+            {Characters.CarriageReturn, @"\r"},
+            {Characters.NewLine, @"\n"},
+            {Characters.FormFeed, @"\f"},
+            {Characters.Tab, @"\t"},
+            {Characters.VerticalTab, @"\v"},
+            {Characters.Bell, @"\a"},
+            {Characters.BackSpace, @"\b"},
+            {Characters.Escape, @"\e"},
+            {Characters.Letter, @"a-zA-Z"},
+            {Characters.UpperCaseLetter, @"A-Z"},
+            {Characters.LowerCaseLetter, @"a-z"}
+        };
 	}
 }

@@ -17,19 +17,21 @@ namespace MagicExpression.Test
 		{
 			IMagex magicWand = Magex.New();
 
-			magicWand.Character('-').Repeat.AtMostOnce()
-			         .CharacterIn(Characters.Numeral).Repeat.Any()
-			         .Character('.')
-			         .CharacterIn(Characters.Numeral).Repeat.AtLeastOnce();
+            #region
+            magicWand.Character('-').Repeat.AtMostOnce()
+                     .CharacterIn(Characters.Numeral).Repeat.Any()
+                     .Character('.').Repeat.Once()
+                     .CharacterIn(Characters.Numeral).Repeat.AtLeastOnce();
+            #endregion
 
 			// Creates a regex corresponding to
 			// -?[0-9]*\.[0-9]+
 			var floatingPointNumberDetector = new Regex(magicWand.Expression);
 
-			Assert.IsTrue(floatingPointNumberDetector.IsMatch("1.234"));
-			Assert.IsTrue(floatingPointNumberDetector.IsMatch("-1.234"));
-			Assert.IsTrue(floatingPointNumberDetector.IsMatch("0.0"));
-			Assert.IsTrue(floatingPointNumberDetector.IsMatch(".01"));
+            Assert.IsTrue(floatingPointNumberDetector.IsMatch("1.234"), "1");
+            Assert.IsTrue(floatingPointNumberDetector.IsMatch("-1.234"), "2");
+            Assert.IsTrue(floatingPointNumberDetector.IsMatch("0.0"), "3");
+            Assert.IsTrue(floatingPointNumberDetector.IsMatch(".01"), "4");
 
 			Assert.IsFalse(floatingPointNumberDetector.IsMatch("0"));
 			Assert.IsFalse(floatingPointNumberDetector.IsMatch("1,234"));
@@ -141,13 +143,15 @@ namespace MagicExpression.Test
 			// 0x34cde4
 			IMagex magicWand = Magex.New();
 
-			magicWand
-				.Character('0')
-				.CharacterIn("xX")
-				.CharacterIn(Characters.Numeral, "abcdefABCDEF")
-				.Repeat.Times(6);
+            #region
+            magicWand
+                .Character('0')
+                .CharacterIn("xX")
+                .CharacterIn(Characters.Numeral, "abcdefABCDEF")
+                .Repeat.Times(6);
+            #endregion
 
-			var detector = new Regex(magicWand.Expression);
+            var detector = new Regex(magicWand.Expression);
 
 			Assert.IsTrue(detector.IsMatch("0x123456"));
 			Assert.IsTrue(detector.IsMatch("0x1a3b5C"));
@@ -164,23 +168,29 @@ namespace MagicExpression.Test
 			// #34cde4 or #54f
 			IMagex magicWand = Magex.New();
 
-			magicWand
-				.Character('#')
-				.Alternative(
-					Magex.New().CharacterIn(Characters.Numeral, "abcdefABCDEF").Repeat.Times(6),
-					Magex.New().CharacterIn(Characters.Numeral, "abcdefABCDEF").Repeat.Times(3).EndOfLine());
+            #region
+            magicWand
+                .StartOfLine()
+                .Character('#')
+                .Alternative(
+                    Magex.New().CharacterIn(Characters.Numeral, "abcdefABCDEF").Repeat.Times(3),
+                    Magex.New().CharacterIn(Characters.Numeral, "abcdefABCDEF").Repeat.Times(6))
+                .EndOfLine();
+            #endregion
 
-			var detector = new Regex(magicWand.Expression);
+            var detector = new Regex(magicWand.Expression);
 
 			Assert.IsTrue(detector.IsMatch("#123456"));
-			Assert.IsTrue(detector.IsMatch("#123"));
-			Assert.IsTrue(detector.IsMatch("#1a3b5C"));
+            Assert.IsTrue(detector.IsMatch("#123"));
+            Assert.IsTrue(detector.IsMatch("#1a3b5C"));
 			Assert.IsTrue(detector.IsMatch("#1a3"));
-			Assert.IsFalse(detector.IsMatch(""));
-			Assert.IsFalse(detector.IsMatch("#1"));
-			Assert.IsFalse(detector.IsMatch("#1a3b5Z"));
-			Assert.IsFalse(detector.IsMatch("#xyz"));
-			Assert.IsFalse(detector.IsMatch("#1z3"));
+
+			Assert.IsFalse(detector.IsMatch(""), "Empty");
+            Assert.IsFalse(detector.IsMatch("#1"), "One char");
+            Assert.IsFalse(detector.IsMatch("#1a3b5Z"), "Wrong letters");
+            Assert.IsFalse(detector.IsMatch("##1a3b5C"), "Two #s");
+            Assert.IsFalse(detector.IsMatch("#12345678"), "Too many chars");
+            Assert.IsFalse(detector.IsMatch("#1z3"), "Wrong chars");
 		}
 
 		[TestMethod]
@@ -188,13 +198,15 @@ namespace MagicExpression.Test
 		{
 			IMagex magicWand = Magex.New();
 
-			magicWand
+            #region
+            magicWand
 				.Builder.NumericRange(1, 255).Character('.')
 				.Builder.NumericRange(0, 255).Character('.')
 				.Builder.NumericRange(0, 255).Character('.')
 				.Builder.NumericRange(0, 255);
+            #endregion
 
-			var detector = new Regex(magicWand.Expression);
+            var detector = new Regex(magicWand.Expression);
 
 			Assert.IsTrue(detector.IsMatch("73.60.124.136"));
 
@@ -216,7 +228,8 @@ namespace MagicExpression.Test
 
 			const string allowedChars = @"!#$%&'*+/=?^_`{|}~-";
 
-			magicWand
+            #region
+            magicWand
 				.Alternative(
 					Magex.New().String("http"),
 					Magex.New().String("ftp"))
@@ -224,13 +237,15 @@ namespace MagicExpression.Test
 				.String("://")
 				.Group(Magex.New().String("www.")).Repeat.AtMostOnce()
 				.CharacterIn(Characters.Alphanumeric, allowedChars);
-
-			var detector = new Regex(magicWand.Expression);
+            #endregion
+            
+            var detector = new Regex(magicWand.Expression);
 
 			Assert.IsTrue(detector.IsMatch("http://url.com"));
 			Assert.IsTrue(detector.IsMatch("https://url.com"));
-			Assert.IsTrue(detector.IsMatch("http://www.url.com"));
-			Assert.IsTrue(detector.IsMatch("https://www.url.com"));
+            Assert.IsTrue(detector.IsMatch("http://www.url.com"));
+            Assert.IsTrue(detector.IsMatch("https://www.url.com"));
+            //Assert.IsTrue(detector.IsMatch("htTpS://Www.url.com"));
 			Assert.IsTrue(detector.IsMatch("ftp://url.com"));
 			Assert.IsTrue(detector.IsMatch("ftps://url.com"));
 
@@ -245,20 +260,35 @@ namespace MagicExpression.Test
 
 			IMagex magicwand = Magex.New();
 
-			const string hexChars = "0123456789abcdefABCDEF";
-			magicwand
-				.Group(x => x.CharacterIn(hexChars).Repeat.Between(0, 4).Character(':'))
-				.Repeat.Times(7)
-				.CharacterIn(hexChars).Repeat.Times(4)
-				.EndOfLine();
+            #region
+            const string hexChars = "0123456789abcdefABCDEF";
 
-			var detector = new Regex(magicwand.Expression);
+            IMagex hexAndColumn = Magex.New().CharacterIn(hexChars).Repeat.Between(0, 4).Character(':').Repeat.Once();
+            
+            magicwand
+                .Group(hexAndColumn).Repeat.Times(7)
+                    .CharacterIn(hexChars).Repeat.Times(4) //Final Block
+                    .EndOfLine();
+            #endregion
+
+            //1 to 7 blocks with 0-4 hex and a :
+            //Alternative(
+            // a final hex
+            //  OR
+            // another : with at most 1-7 blocks
+
+            var detector = new Regex(magicwand.Expression);
 
 			Assert.IsTrue(detector.IsMatch("2001:0db8:85a3:08d3:1319:8a2e:0370:7344"), "Standard case");
-			Assert.IsTrue(detector.IsMatch("2001:db8:85a3:8d3:1319:8a2e:370:7344"), "No leading zeroes");
-			Assert.IsFalse(detector.IsMatch("20r1:0db8:85m3:08d3:1319:8k2e:0370:7l44"), "Illegal characters");
-			Assert.IsFalse(detector.IsMatch("2001:0db8:helloworld:0370:7l44"), "Too long block + illegal characters");
-			Assert.IsFalse(detector.IsMatch("2001:0db8"), "Too few blocks");
+			Assert.IsTrue(detector.IsMatch("2001:db8:85a3:8d3:1319:8a2e:370:7344"), "Leading zeroes can be ommited");
+			
+            Assert.IsTrue(detector.IsMatch("2001:2002:0000:0000:0000:0000:0000:2008"), "Or can be kept...");
+            //Assert.IsTrue(detector.IsMatch("2001:2002::2008"), "...and be compressed...");
+            //Assert.IsFalse(detector.IsMatch("2001::0000:0000:0000::0000:2008"), "... but only once per adress");
+
+            Assert.IsFalse(detector.IsMatch("20r1:0db8:85m3:08d3:1319:8k2e:0370:7l44"), "Illegal characters");
+            Assert.IsFalse(detector.IsMatch("2001:0db8:helloworld:0370:7l44"), "Too long block + illegal characters");
+            Assert.IsFalse(detector.IsMatch("2001:0db8"), "Too few blocks");
 		}
 	}
 }
