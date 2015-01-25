@@ -58,9 +58,16 @@ namespace MagicExpression.ReverseEngineering
             {
                 var startIndex = this.RegularExpression.IndexOf(set.Value);
 
-                if (startIndex >= 0)
+                // If the pattern was found
+                if (startIndex == 0 || 
+                    (startIndex >= 1 && !String.IsNullOrEmpty(this.RegularExpression) && this.RegularExpression[startIndex - 1] != '\\'))
                     parts.Add(new Leaf(startIndex, startIndex + set.Value.Length, set.Key));
             }
+
+
+
+
+            // TODO: Potentially interpreted some things in two different ways...
 
             return parts;
         }
