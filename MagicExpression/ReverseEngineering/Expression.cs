@@ -51,20 +51,17 @@ namespace MagicExpression.ReverseEngineering
         /// <returns></returns>
         internal IList<IExpression> SplitIntoKnownParts()
         {
-            var parts = new List<IExpression>(0);
+            IList<IExpression> parts = new List<IExpression>(0);
 
             SearchForKnownSets(parts);
-            
-            // Orderby startIndex 
             parts = parts.OrderBy(x => (x as Leaf).StartIndex).ToList<IExpression>();
-
-            // TODO: Handle superimposed elements
-            // ...
+            //parts = FillupWithSingleChars(parts);
+            //CreateOutputStructure(parts);
 
             return parts;
-        }
+        } 
 
-        private void SearchForKnownSets(List<IExpression> parts)
+        private void SearchForKnownSets(IList<IExpression> parts)
         {
             foreach (var segment in RegexParts.Segments)
             {
@@ -72,7 +69,7 @@ namespace MagicExpression.ReverseEngineering
             }
         }
 
-        private void SearchForSegment(List<IExpression> parts, string key, string value)
+        private void SearchForSegment(IList<IExpression> parts, string key, string value)
         {
             var done = false;
             var startIndex = 0;
@@ -115,6 +112,14 @@ namespace MagicExpression.ReverseEngineering
             this.StopIndex = stopIndex;
             this.CharacterSet = characterSet;
             this.RegularExpression = RegexParts.Segments[characterSet];
+        }
+
+        public Leaf(int startIndex, int stopIndex, string characterSet, char character)
+        {
+            this.StartIndex = startIndex;
+            this.StopIndex = stopIndex;
+            this.CharacterSet = characterSet;
+            this.RegularExpression = character.ToString();
         }
     }
 }

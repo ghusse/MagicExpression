@@ -25,6 +25,7 @@ namespace MagicExpression
         public static string CharactersUpperCaseLetter = "CharactersUpperCaseLetter"           ;
         public static string CharactersLowerCaseLetter = "CharactersLowerCaseLetter"           ;
 
+        public static string CharacterSingle = "CharacterSingle";
 
         public static string AlternativeBegin = "AlternativeBegin" ;
         public static string AlternativeSeparator = "AlternativeSeparator";
