@@ -34,7 +34,7 @@ namespace MagicExpression
         public static string GroupBegin = "GroupBegin";
         public static string GroupEnd = "GroupEnd";
 
-        public static IDictionary<string, string> Segments = new Dictionary<string, string>()
+        public static IDictionary<string, string> UniquelyIdentifiedSegments = new Dictionary<string, string>()
         {
             {CharactersAlphanumeric, @"\w"},
             {CharactersNonAlphanumeric, @"\W"},
