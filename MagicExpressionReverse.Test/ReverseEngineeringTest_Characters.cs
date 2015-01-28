@@ -16,7 +16,7 @@ namespace MagicExpressionReverse.Test
         {
             var expression = @"\d";
             var reverseBuilder = new ReverseBuilder(expression);
-            Assert.IsTrue(reverseBuilder.Expression.Parts[0] != null);
+            Assert.AreEqual(1, reverseBuilder.Segments.Count);
         }
 
         [TestMethod]
@@ -24,9 +24,7 @@ namespace MagicExpressionReverse.Test
         {
             var expression = @"\d";
             var reverseBuilder = new ReverseBuilder(expression);
-            var leaf = reverseBuilder.Expression.Parts[0] as Leaf;
-            Assert.IsNotNull(leaf);
-            Assert.AreEqual(RegexParts.CharactersNumeral, leaf.CharacterSet);
+            Assert.AreEqual(RegexParts.CharactersNumeral, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
         }
 
         [TestMethod]
@@ -34,9 +32,7 @@ namespace MagicExpressionReverse.Test
         {
             var expression = @"\s";
             var reverseBuilder = new ReverseBuilder(expression);
-            var leaf = reverseBuilder.Expression.Parts[0] as Leaf;
-            Assert.IsNotNull(leaf);
-            Assert.AreEqual(RegexParts.CharactersWhiteSpaces, leaf.CharacterSet);
+            Assert.AreEqual(RegexParts.CharactersWhiteSpaces, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
         }
 
         [TestMethod]
@@ -44,12 +40,10 @@ namespace MagicExpressionReverse.Test
         {
             var expression = @"\d\s";
             var reverseBuilder = new ReverseBuilder(expression);
-            var leaf1 = reverseBuilder.Expression.Parts[0] as Leaf;
-            Assert.IsNotNull(leaf1);
-            Assert.AreEqual(RegexParts.CharactersNumeral, leaf1.CharacterSet);
-            var leaf2 = reverseBuilder.Expression.Parts[1] as Leaf;
-            Assert.IsNotNull(leaf2);
-            Assert.AreEqual(RegexParts.CharactersWhiteSpaces, leaf2.CharacterSet);
+
+            Assert.AreEqual(2, reverseBuilder.Segments.Count);
+            Assert.AreEqual(RegexParts.CharactersNumeral, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
+            Assert.AreEqual(RegexParts.CharactersWhiteSpaces, (reverseBuilder.Segments[1] as FormallyIdentifiedSegment).CharacterSet);
         }
 
         [TestMethod]
@@ -58,17 +52,31 @@ namespace MagicExpressionReverse.Test
             var expression = @"\d\s\d";
             var reverseBuilder = new ReverseBuilder(expression);
 
-            var leaf1 = reverseBuilder.Expression.Parts[0] as Leaf;
-            Assert.IsNotNull(leaf1);
-            Assert.AreEqual(RegexParts.CharactersNumeral, leaf1.CharacterSet);
- 
-            var leaf2 = reverseBuilder.Expression.Parts[1] as Leaf;
-            Assert.IsNotNull(leaf2);
-            Assert.AreEqual(RegexParts.CharactersWhiteSpaces, leaf2.CharacterSet);
+            Assert.AreEqual(3, reverseBuilder.Segments.Count);
+            Assert.AreEqual(RegexParts.CharactersNumeral, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
+            Assert.AreEqual(RegexParts.CharactersWhiteSpaces, (reverseBuilder.Segments[1] as FormallyIdentifiedSegment).CharacterSet);
+            Assert.AreEqual(RegexParts.CharactersNumeral, (reverseBuilder.Segments[2] as FormallyIdentifiedSegment).CharacterSet);
+        }
 
-            var leaf3 = reverseBuilder.Expression.Parts[2] as Leaf;
-            Assert.IsNotNull(leaf3);
-            Assert.AreEqual(RegexParts.CharactersNumeral, leaf3.CharacterSet);
+        [TestMethod]
+        public void ReverseEngineeringTest_DoubleEscapingBackslash()
+        {
+            var expression = @"\\";
+            var reverseBuilder = new ReverseBuilder(expression);
+            Assert.AreEqual(2, reverseBuilder.Segments.Count);
+            Assert.IsTrue(reverseBuilder.Segments[0] is EscapingSegment);
+            Assert.IsTrue(reverseBuilder.Segments[1] is UnidentifiedSegment);
+        }
+
+        [TestMethod]
+        public void ReverseEngineeringTest_TripleEscapingBackslash()
+        {
+            var expression = @"\\\";
+            var reverseBuilder = new ReverseBuilder(expression);
+            Assert.AreEqual(3, reverseBuilder.Segments.Count);
+            Assert.IsTrue(reverseBuilder.Segments[0] is EscapingSegment);
+            Assert.IsTrue(reverseBuilder.Segments[1] is UnidentifiedSegment);
+            Assert.IsTrue(reverseBuilder.Segments[2] is EscapingSegment);
         }
 
         [TestMethod]
@@ -76,7 +84,7 @@ namespace MagicExpressionReverse.Test
         {
             var expression = @"\\s";
             var reverseBuilder = new ReverseBuilder(expression);
-            Assert.AreEqual(3, reverseBuilder.Expression.Parts.Count);
+            Assert.AreEqual(3, reverseBuilder.Segments.Count);
         }
 
 

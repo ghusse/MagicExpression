@@ -29,12 +29,12 @@ namespace MagicExpression
 
         public static string AlternativeBegin = "AlternativeBegin" ;
         public static string AlternativeSeparator = "AlternativeSeparator";
-        public static string AlternativeEnd = "AlternativeEnd";
+        public static string AlternativeOrGroupEnd = "AlternativeEnd";
         
         public static string GroupBegin = "GroupBegin";
         public static string GroupEnd = "GroupEnd";
 
-        public static IDictionary<string, string> UniquelyIdentifiedSegments = new Dictionary<string, string>()
+        public static IDictionary<string, string> FormallydentifyableSegments = new Dictionary<string, string>()
         {
             {CharactersAlphanumeric, @"\w"},
             {CharactersNonAlphanumeric, @"\W"},
@@ -56,10 +56,12 @@ namespace MagicExpression
         
             {AlternativeBegin, @"(?:"},
             {AlternativeSeparator, @"|"},
-            {AlternativeEnd, @")"},
-             
-            {GroupBegin, @"("},
-            {GroupEnd, @")"},
+        };
+
+        public static IDictionary<string, string> PartiallyIdentifyableSegments = new Dictionary<string, string>()
+        {
+            {AlternativeOrGroupEnd, @")"},
+            {GroupBegin, @"("}, // False positive if followed by "?:", but will be matched on smaller ensembles only so should be ok...
         };
     }
 }

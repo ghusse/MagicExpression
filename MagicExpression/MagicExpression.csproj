@@ -66,6 +66,7 @@
     <Compile Include="ReverseEngineering\INode.cs" />
     <Compile Include="ReverseEngineering\Node.cs" />
     <Compile Include="ReverseEngineering\ReverseBuilder.cs" />
+    <Compile Include="ReverseEngineering\Segment.cs" />
     <Compile Include="ReverseEngineering\Set.cs" />
   </ItemGroup>
   <ItemGroup>

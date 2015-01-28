@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -11,22 +12,59 @@ namespace MagicExpression.ReverseEngineering
     /// </summary>
     public class ReverseBuilder
     {
-        private Expression _expression = null;
-        public Expression Expression 
-        { 
-            get
-            {
-                return this._expression;    
-            }
-            private set
-            { 
-                this._expression = value; 
-            }
-        }
+        private bool IGNORE_CASE = true;
+
+        public IList<ISegment> Segments { get; set; }
 
         public ReverseBuilder(string regex)
         {
-            this.Expression = new Expression(regex);
+            this.Segments = DecomposeSegments(regex);
+        }
+
+        private IList<ISegment> DecomposeSegments(string regex)
+        {
+            var decomposedSegments = new List<ISegment>(0);
+            string remainingRegexToMatch = regex;
+            int globalStartIndex = 0;
+            bool found = false;
+
+            while (remainingRegexToMatch.Length > 0)
+            {
+                found = false;
+
+                // If there is no identified segment yet, or if the last segment identified is NOT an escaping backslash "\"
+                var lastSegment = decomposedSegments.LastOrDefault();
+                if (lastSegment == null || (lastSegment != null && !(lastSegment is EscapingSegment)))
+                {
+                    // Go through all the FormallydentifyableSegments until a match is found
+                    foreach (var formallydentifyableSegment in RegexParts.FormallydentifyableSegments)
+                    {
+                        var regexSegment = formallydentifyableSegment.Value;
+                        if (remainingRegexToMatch.StartsWith(regexSegment, IGNORE_CASE, CultureInfo.CurrentCulture))
+                        {
+                            var length = regexSegment.Length;
+                            decomposedSegments.Add(new FormallyIdentifiedSegment(globalStartIndex, globalStartIndex + length, regexSegment, formallydentifyableSegment.Key));
+                            remainingRegexToMatch = remainingRegexToMatch.Remove(0, length);
+                            globalStartIndex += length;
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!found)
+                {
+                    // If the first character is a backslash and it is not escaped by a former backslash
+                    if (remainingRegexToMatch[0] == '\\' && !(decomposedSegments.LastOrDefault() is EscapingSegment))
+                        decomposedSegments.Add(new EscapingSegment(globalStartIndex, globalStartIndex + 1, remainingRegexToMatch.Substring(0, 1)));
+                    else
+                        decomposedSegments.Add(new UnidentifiedSegment(globalStartIndex, globalStartIndex + 1, remainingRegexToMatch.Substring(0,1)));
+                    remainingRegexToMatch = remainingRegexToMatch.Remove(0, 1);
+                    globalStartIndex += 1;
+                }
+            }
+
+            return decomposedSegments;
         }
     }
 }

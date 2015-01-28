@@ -18,19 +18,19 @@
 			{
 				StringBuilder sb = new StringBuilder();
 
-				sb.Append(RegexParts.UniquelyIdentifiedSegments["AlternativeBegin"]);
+				sb.Append(RegexParts.FormallydentifyableSegments["AlternativeBegin"]);
 
 				for (var i = 0; i < elements.Count; i++)
 				{
 					if (i > 0)
 					{
-                        sb.Append(RegexParts.UniquelyIdentifiedSegments["AlternativeSeparator"]);
+                        sb.Append(RegexParts.FormallydentifyableSegments["AlternativeSeparator"]);
 					}
 
 					sb.Append(this.elements[i].Expression);
 				}
 
-                sb.Append(RegexParts.UniquelyIdentifiedSegments["AlternativeEnd"]);
+                sb.Append(RegexParts.FormallydentifyableSegments["AlternativeEnd"]);
 
 				return sb.ToString();
 			}

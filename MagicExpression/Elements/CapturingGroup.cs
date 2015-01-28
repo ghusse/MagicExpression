@@ -12,7 +12,7 @@
 		{
 			get
 			{
-                return RegexParts.UniquelyIdentifiedSegments["GroupBegin"] + this.Grouped.Expression + RegexParts.UniquelyIdentifiedSegments["GroupEnd"];
+                return RegexParts.FormallydentifyableSegments["GroupBegin"] + this.Grouped.Expression + RegexParts.FormallydentifyableSegments["GroupEnd"];
 			}
 		}
 

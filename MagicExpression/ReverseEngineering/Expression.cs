@@ -134,7 +134,7 @@ namespace MagicExpression.ReverseEngineering
 
         private void SearchForKnownSets(IList<IExpression> parts)
         {
-            foreach (var segment in RegexParts.UniquelyIdentifiedSegments)
+            foreach (var segment in RegexParts.FormallydentifyableSegments)
             {
                 SearchForSegment(parts, segment.Key, segment.Value);
             }
@@ -182,7 +182,7 @@ namespace MagicExpression.ReverseEngineering
             this.StartIndex = startIndex;
             this.StopIndex = stopIndex;
             this.CharacterSet = characterSet;
-            this.RegularExpression = RegexParts.UniquelyIdentifiedSegments[characterSet];
+            this.RegularExpression = RegexParts.FormallydentifyableSegments[characterSet];
         }
 
         public Leaf(int startIndex, int stopIndex, string characterSet, char character)
