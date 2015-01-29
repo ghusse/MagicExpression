@@ -64,6 +64,33 @@ namespace MagicExpression
             {ForbiddenCharsEnd, @"]"},
         };
 
+        public static IDictionary<string, string> FormallydentifyableMagex = new Dictionary<string, string>()
+        {
+            {CharactersAlphanumeric, @".Characters(Characters.Alphanumeric)"},
+            {CharactersNonAlphanumeric, @".Characters(Characters.NonAlphanumeric)"},
+            {CharactersNumeral, @".Characters(Characters.Numeral)"},
+            {CharactersNonNumeral, @".Characters(Characters.NonNumeral)"},
+            {CharactersWhiteSpaces, @".Characters(Characters.WhiteSpace)"},
+            {CharactersNonWhiteSpace, @".Characters(Characters.NonWhiteSpace)"},
+            {CharactersCarriageReturn, @".Characters(Characters.CarriageReturn)"},
+            {CharactersNewLine, @".Characters(Characters.NewLine)"},
+            {CharactersFormFeed, @".Characters(Characters.FormFeed)"},
+            {CharactersTab, @".Characters(Characters.Tab)"},
+            {CharactersVerticalTab, @".Characters(Characters.VerticalTab)"},
+            {CharactersBell, @".Characters(Characters.Bell)"},
+            {CharactersBackSpace, @".Characters(Characters.BackSpace)"},
+            {CharactersEscape, @".Characters(Characters.Escape)"},
+            {CharactersLetter, @".Characters(Characters.Letter)"},
+            {CharactersUpperCaseLetter, @".Characters(Characters.UpperCaseLetter)"},
+            {CharactersLowerCaseLetter, @".Characters(Characters.LowerCaseLetter)"},
+        
+            {AlternativeBegin, @".Capture("},
+            {AlternativeSeparator, @","},
+
+            {ForbiddenCharsBegin, @".CharacterNotIn("},
+            {ForbiddenCharsEnd, @")"},
+        };
+
         public static IDictionary<string, string> PartiallyIdentifyableSegments = new Dictionary<string, string>()
         {
             {AlternativeOrGroupEnd, @")"},

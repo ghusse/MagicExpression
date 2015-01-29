@@ -16,6 +16,8 @@ namespace MagicExpression.ReverseEngineering
 
         public IList<ISegment> Segments { get; set; }
 
+        public IList<string> Magex { get { return CreateMagex(); } }
+
         public ReverseBuilder(string regex)
         {
             this.Segments = DecomposeSegments(regex);
@@ -65,6 +67,17 @@ namespace MagicExpression.ReverseEngineering
             }
 
             return decomposedSegments;
+        }
+
+        private IList<string> CreateMagex()
+        {
+            var list = new List<string>();
+
+            // Go through each segment and replace it with its magex equivalent
+
+            // Do not forget that there may be multiple paths trough the segments
+
+            return list;
         }
     }
 }
