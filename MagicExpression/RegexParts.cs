@@ -34,6 +34,9 @@ namespace MagicExpression
         public static string GroupBegin = "GroupBegin";
         public static string GroupEnd = "GroupEnd";
 
+        public static string ForbiddenCharsBegin = "ForbiddenCharsBegin";
+        public static string ForbiddenCharsEnd = "ForbiddenCharsEnd";
+
         public static IDictionary<string, string> FormallydentifyableSegments = new Dictionary<string, string>()
         {
             {CharactersAlphanumeric, @"\w"},
@@ -56,6 +59,9 @@ namespace MagicExpression
         
             {AlternativeBegin, @"(?:"},
             {AlternativeSeparator, @"|"},
+
+            {ForbiddenCharsBegin, @"[^"},
+            {ForbiddenCharsEnd, @"]"},
         };
 
         public static IDictionary<string, string> PartiallyIdentifyableSegments = new Dictionary<string, string>()

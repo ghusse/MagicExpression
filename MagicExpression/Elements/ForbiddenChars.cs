@@ -5,7 +5,9 @@
 	{
 		public ForbiddenChars(Characters chars, char[] other)
 		{
-			this.Expression = "[^" + RegexCharacters.Get(chars) + RegexCharacters.Escape(other) + "]";
+            this.Expression = RegexParts.FormallydentifyableSegments[RegexParts.ForbiddenCharsBegin]
+                + RegexCharacters.Get(chars) + RegexCharacters.Escape(other)
+                + RegexParts.FormallydentifyableSegments[RegexParts.ForbiddenCharsEnd];
 		}
 
 		public string Expression { get; private set; }
