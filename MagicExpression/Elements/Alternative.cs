@@ -1,6 +1,6 @@
 ﻿namespace MagicExpression.Elements
 {
-    using MagicExpression.RegexParts;
+    using MagicExpression.RegexMagexLexicon;
     using System.Collections.Generic;
     using System.Text;
 
@@ -19,19 +19,19 @@
 			{
 				StringBuilder sb = new StringBuilder();
 
-				sb.Append(RegexParts.FormallydentifyableSegments[SegmentNames.AlternativeBegin]);
+				sb.Append(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.AlternativeBegin]);
 
 				for (var i = 0; i < elements.Count; i++)
 				{
 					if (i > 0)
 					{
-                        sb.Append(RegexParts.FormallydentifyableSegments[SegmentNames.AlternativeSeparator]);
+                        sb.Append(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.AlternativeSeparator]);
 					}
 
 					sb.Append(this.elements[i].Expression);
 				}
 
-                sb.Append(RegexParts.FormallydentifyableSegments[SegmentNames.ParenthesisEnd]);
+                sb.Append(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.ParenthesisEnd]);
 
 				return sb.ToString();
 			}

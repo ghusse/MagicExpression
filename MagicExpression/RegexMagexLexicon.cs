@@ -38,7 +38,7 @@ namespace MagicExpression
         NamedBackReferenceEnd,
     }
 
-    public static class RegexParts
+    public static class RegexMagexLexicon
     {
         public static IDictionary<SegmentNames, RegexString> FormallydentifyableSegments = new Dictionary<SegmentNames, RegexString>()
         {

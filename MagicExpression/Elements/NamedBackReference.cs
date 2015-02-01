@@ -7,9 +7,9 @@
 			: base(name)
 		{
             // @"\k<" + name + ">"
-            this.Expression = RegexParts.FormallydentifyableSegments[SegmentNames.NamedBackReferenceBegin]
+            this.Expression = RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.NamedBackReferenceBegin]
                 + name
-                + RegexParts.FormallydentifyableSegments[SegmentNames.NamedBackReferenceEnd];
+                + RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.NamedBackReferenceEnd];
         }
 
 		public string Expression { get; private set; }

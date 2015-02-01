@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 
 namespace MagicExpression.ReverseEngineering
 {
@@ -39,7 +37,7 @@ namespace MagicExpression.ReverseEngineering
                 if (lastSegment == null || (lastSegment != null && !(lastSegment is EscapingSegment)))
                 {
                     // Go through all the FormallydentifyableSegments until a match is found
-                    foreach (var formallydentifyableSegment in RegexParts.FormallydentifyableSegments)
+                    foreach (var formallydentifyableSegment in RegexMagexLexicon.FormallydentifyableSegments)
                     {
                         var regexSegment = formallydentifyableSegment.Value.Regex;
                         if (remainingRegexToMatch.StartsWith(regexSegment, IGNORE_CASE, CultureInfo.CurrentCulture))

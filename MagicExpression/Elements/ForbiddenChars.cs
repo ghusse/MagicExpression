@@ -5,9 +5,9 @@
 	{
 		public ForbiddenChars(Characters chars, char[] other)
 		{
-            this.Expression = RegexParts.FormallydentifyableSegments[SegmentNames.ForbiddenCharsBegin]
+            this.Expression = RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.ForbiddenCharsBegin]
                 + RegexCharacters.Get(chars) + RegexCharacters.Escape(other)
-                + RegexParts.FormallydentifyableSegments[SegmentNames.ForbiddenCharsEnd];
+                + RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.ForbiddenCharsEnd];
 		}
 
 		public string Expression { get; private set; }

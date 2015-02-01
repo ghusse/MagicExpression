@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace MagicExpression.ReverseEngineering
 {
-    public class Node : MagicExpression.ReverseEngineering.INode
+    public interface INode
+    {
+        IList<IExpression> Possibilities { get; set; }
+        bool IsEmpty();
+    }
+
+    public class Node : INode
     {
         public IList<IExpression> Possibilities { get; set; }
 

@@ -58,35 +58,43 @@ namespace MagicExpression.ReverseEngineering
             
             IList<INode> OrderedList = CreateOutputStructure(parts);
 
-            //VerifyList(OrderedList);
+            ProofConsistency(OrderedList);
+
             //FillupWithSingleChars(OrderedList);
             
             return parts;
         }
 
-        //private void VerifyList(IList<INode> OrderedList)
-        //{
-        //    //foreach (var node in OrderedList)
-        //    //{
-        //    //    // The node is empty
-        //    //    if(node == null)
-        //    //        throw new Exception("Node cannot be null at this point");
+        /// <summary>
+        /// Scans the whole list for consistency
+        /// </summary>
+        /// <param name="OrderedList">The list to proof</param>
+        private void ProofConsistency(IList<INode> OrderedList)
+        {
+            //Check groups
+            //
 
-        //    //    // The node has no possibilities (BEEP)
-        //    //    // The node has 0 possibilities (OK)
-        //    //    // The node has more than 1 possibilities (BEEP)
-        //    //    if(node.Possibilities == null || (node.Possibilities != null && node.Possibilities.Count > 1))
-        //    //        throw new Exception("There should not be more than one possibility at this point");
+            //foreach (var node in OrderedList)
+            //{
+            //    // The node is empty
+            //    if(node == null)
+            //        throw new Exception("Node cannot be null at this point");
 
-        //    //    var leaf = node.Possibilities.First() as Leaf;
-        //    //    if (leaf == null)
-        //    //        throw new Exception("An expression is not allowed in the chain at this point");
+            //    // The node has no possibilities (BEEP)
+            //    // The node has 0 possibilities (OK)
+            //    // The node has more than 1 possibilities (BEEP)
+            //    if(node.Possibilities == null || (node.Possibilities != null && node.Possibilities.Count > 1))
+            //        throw new Exception("There should not be more than one possibility at this point");
 
-        //    //    for (int i = leaf.StartIndex + 1; i < leaf.StopIndex; i++)
-        //    //        if (!OrderedList[i].IsEmpty())
-        //    //            throw new Exception(string.Format("Leaf {0} is not empty", i));
-        //    //}
-        //}
+            //    var leaf = node.Possibilities.First() as Leaf;
+            //    if (leaf == null)
+            //        throw new Exception("An expression is not allowed in the chain at this point");
+
+            //    for (int i = leaf.StartIndex + 1; i < leaf.StopIndex; i++)
+            //        if (!OrderedList[i].IsEmpty())
+            //            throw new Exception(string.Format("Leaf {0} is not empty", i));
+            //}
+        }
 
         //private void FillupWithSingleChars(IList<INode> OrderedList)
         //{
@@ -133,7 +141,7 @@ namespace MagicExpression.ReverseEngineering
 
         private void SearchForKnownSets(IList<IExpression> parts)
         {
-            foreach (var segment in RegexParts.FormallydentifyableSegments)
+            foreach (var segment in RegexMagexLexicon.FormallydentifyableSegments)
             {
                 SearchForSegment(parts, segment.Key, segment.Value);
             }
@@ -181,8 +189,8 @@ namespace MagicExpression.ReverseEngineering
             this.StartIndex = startIndex;
             this.StopIndex = stopIndex;
             this.CharacterSet = magexString;
-            this.RegularExpression = RegexParts.FormallydentifyableSegments[magexString] != null ?
-                RegexParts.FormallydentifyableSegments[magexString].Magex : null;
+            this.RegularExpression = RegexMagexLexicon.FormallydentifyableSegments[magexString] != null ?
+                RegexMagexLexicon.FormallydentifyableSegments[magexString].Magex : null;
         }
 
         public Leaf(int startIndex, int stopIndex, SegmentNames magexString, char character)

@@ -12,7 +12,7 @@
 		{
 			get
 			{
-                return RegexParts.FormallydentifyableSegments[SegmentNames.ParenthesisBegin] + this.Grouped.Expression + RegexParts.FormallydentifyableSegments[SegmentNames.ParenthesisEnd];
+                return RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.ParenthesisBegin] + this.Grouped.Expression + RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.ParenthesisEnd];
 			}
 		}
 
