@@ -29,9 +29,9 @@ namespace MagicExpression.ReverseEngineering
 
     public abstract class IdentifiedSegment: Segment
     {
-        public string CharacterSet { get; set; }
+        public SegmentNames CharacterSet { get; set; }
 
-        public IdentifiedSegment(int _startIndex, int _stopIndex, string _regexSegment, string _characterSet)
+        public IdentifiedSegment(int _startIndex, int _stopIndex, string _regexSegment, SegmentNames _characterSet)
             :base(_startIndex, _stopIndex, _regexSegment)
         {
             this.CharacterSet = _characterSet;
@@ -41,7 +41,7 @@ namespace MagicExpression.ReverseEngineering
     public class EscapingSegment: IdentifiedSegment
     {
         public EscapingSegment(int _startIndex, int _stopIndex, string _regexSegment)
-            : base(_startIndex, _stopIndex, _regexSegment, "EscapingBackslash")
+            : base(_startIndex, _stopIndex, _regexSegment, SegmentNames.EscapingBackslash)
         {
         }
     }
@@ -56,7 +56,7 @@ namespace MagicExpression.ReverseEngineering
 
     public class FormallyIdentifiedSegment: IdentifiedSegment
     {
-        public FormallyIdentifiedSegment(int _startIndex, int _stopIndex, string _regexSegment, string _characterSet)
+        public FormallyIdentifiedSegment(int _startIndex, int _stopIndex, string _regexSegment, SegmentNames _characterSet)
             : base(_startIndex, _stopIndex, _regexSegment, _characterSet)
         {
         }
@@ -64,7 +64,7 @@ namespace MagicExpression.ReverseEngineering
 
     public class PotentiallyIdentifiedSegment : IdentifiedSegment
     {
-        public PotentiallyIdentifiedSegment(int _startIndex, int _stopIndex, string _regexSegment, string _characterSet)
+        public PotentiallyIdentifiedSegment(int _startIndex, int _stopIndex, string _regexSegment, SegmentNames _characterSet)
             : base(_startIndex, _stopIndex, _regexSegment, _characterSet)
         {
         }

@@ -41,11 +41,12 @@ namespace MagicExpression.ReverseEngineering
                     // Go through all the FormallydentifyableSegments until a match is found
                     foreach (var formallydentifyableSegment in RegexParts.FormallydentifyableSegments)
                     {
-                        var regexSegment = formallydentifyableSegment.Value;
+                        var regexSegment = formallydentifyableSegment.Value.Regex;
                         if (remainingRegexToMatch.StartsWith(regexSegment, IGNORE_CASE, CultureInfo.CurrentCulture))
                         {
                             var length = regexSegment.Length;
-                            decomposedSegments.Add(new FormallyIdentifiedSegment(globalStartIndex, globalStartIndex + length, regexSegment, formallydentifyableSegment.Key));
+                            decomposedSegments.Add(new FormallyIdentifiedSegment(globalStartIndex, globalStartIndex + length, 
+                                regexSegment, formallydentifyableSegment.Key));
                             remainingRegexToMatch = remainingRegexToMatch.Remove(0, length);
                             globalStartIndex += length;
                             found = true;

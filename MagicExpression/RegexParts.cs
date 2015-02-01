@@ -5,96 +5,80 @@ using System.Text;
 
 namespace MagicExpression
 {
+    public enum SegmentNames
+    {
+        EscapingBackslash = 0,
+
+        // FormallydentifyableSegments
+        CharactersAlphanumeric,
+        CharactersNonAlphanumeric,
+        CharactersNumeral,
+        CharactersNonNumeral,
+        CharactersWhiteSpaces,
+        CharactersNonWhiteSpace,
+        CharactersCarriageReturn,
+        CharactersNewLine,
+        CharactersFormFeed,
+        CharactersTab,
+        CharactersVerticalTab,
+        CharactersBell,
+        CharactersBackSpace,
+        CharactersEscape,
+        CharactersLetter,
+        CharactersUpperCaseLetter,
+        CharactersLowerCaseLetter,
+        CharacterSingle,
+        AlternativeBegin,
+        AlternativeSeparator,
+        ParenthesisEnd,
+        ParenthesisBegin,
+        ForbiddenCharsBegin,
+        ForbiddenCharsEnd,
+    }
+
     public static class RegexParts
     {
-        public static string CharactersAlphanumeric   = "CharactersAlphanumeric"              ;
-        public static string CharactersNonAlphanumeric= "CharactersNonAlphanumeric"           ;
-        public static string CharactersNumeral        = "CharactersNumeral"                   ;
-        public static string CharactersNonNumeral     = "CharactersNonNumeral"                ;
-        public static string CharactersWhiteSpaces = "CharactersWhiteSpace";   
-        public static string CharactersNonWhiteSpace  = "CharactersNonWhiteSpace"             ;
-        public static string CharactersCarriageReturn = "CharactersCarriageReturn"            ;
-        public static string CharactersNewLine        = "CharactersNewLine"                   ;
-        public static string CharactersFormFeed       = "CharactersFormFeed"                  ;
-        public static string CharactersTab            = "CharactersTab"                       ;
-        public static string CharactersVerticalTab    = "CharactersVerticalTab"               ;
-        public static string CharactersBell           = "CharactersBell"                      ;
-        public static string CharactersBackSpace    = "CharactersBackSpace"                 ;
-        public static string CharactersEscape         = "CharactersEscape"                    ;
-        public static string CharactersLetter         = "CharactersLetter"                    ;
-        public static string CharactersUpperCaseLetter = "CharactersUpperCaseLetter"           ;
-        public static string CharactersLowerCaseLetter = "CharactersLowerCaseLetter"           ;
-
-        public static string CharacterSingle = "CharacterSingle";
-
-        public static string AlternativeBegin = "AlternativeBegin" ;
-        public static string AlternativeSeparator = "AlternativeSeparator";
-        public static string AlternativeOrGroupEnd = "AlternativeEnd";
-        
-        public static string GroupBegin = "GroupBegin";
-        public static string GroupEnd = "GroupEnd";
-
-        public static string ForbiddenCharsBegin = "ForbiddenCharsBegin";
-        public static string ForbiddenCharsEnd = "ForbiddenCharsEnd";
-
-        public static IDictionary<string, string> FormallydentifyableSegments = new Dictionary<string, string>()
+        public static IDictionary<SegmentNames, RegexString> FormallydentifyableSegments = new Dictionary<SegmentNames, RegexString>()
         {
-            {CharactersAlphanumeric, @"\w"},
-            {CharactersNonAlphanumeric, @"\W"},
-            {CharactersNumeral, @"\d"},
-            {CharactersNonNumeral, @"\D"},
-            {CharactersWhiteSpaces, @"\s"},
-            {CharactersNonWhiteSpace, @"\S"},
-            {CharactersCarriageReturn, @"\r"},
-            {CharactersNewLine, @"\n"},
-            {CharactersFormFeed, @"\f"},
-            {CharactersTab, @"\t"},
-            {CharactersVerticalTab, @"\v"},
-            {CharactersBell, @"\a"},
-            {CharactersBackSpace, @"\b"},
-            {CharactersEscape, @"\e"},
-            {CharactersLetter, @"a-zA-Z"},
-            {CharactersUpperCaseLetter, @"A-Z"},
-            {CharactersLowerCaseLetter, @"a-z"},
-        
-            {AlternativeBegin, @"(?:"},
-            {AlternativeSeparator, @"|"},
-
-            {ForbiddenCharsBegin, @"[^"},
-            {ForbiddenCharsEnd, @"]"},
+            {SegmentNames.CharactersAlphanumeric, new RegexString(@"\w",  @".Characters(Characters.Alphanumeric)")},
+            {SegmentNames.CharactersNonAlphanumeric, new RegexString(@"\W", @".Characters(Characters.NonAlphanumeric)")},
+            {SegmentNames.CharactersNumeral, new RegexString(@"\d", @".Characters(Characters.Numeral)")},
+            {SegmentNames.CharactersNonNumeral, new RegexString(@"\D", @".Characters(Characters.NonNumeral)")},
+            {SegmentNames.CharactersWhiteSpaces, new RegexString(@"\s", @".Characters(Characters.WhiteSpace)")},
+            {SegmentNames.CharactersNonWhiteSpace, new RegexString(@"\S", @".Characters(Characters.NonWhiteSpace)")},
+            {SegmentNames.CharactersCarriageReturn, new RegexString(@"\r", @".Characters(Characters.CarriageReturn)")},
+            {SegmentNames.CharactersNewLine, new RegexString(@"\n", @".Characters(Characters.NewLine)")},
+            {SegmentNames.CharactersFormFeed, new RegexString(@"\f", @".Characters(Characters.FormFeed)")},
+            {SegmentNames.CharactersTab, new RegexString(@"\t", @".Characters(Characters.Tab)")},
+            {SegmentNames.CharactersVerticalTab, new RegexString(@"\v", @".Characters(Characters.VerticalTab)")},
+            {SegmentNames.CharactersBell, new RegexString(@"\a", @".Characters(Characters.Bell)")},
+            {SegmentNames.CharactersBackSpace, new RegexString(@"\b", @".Characters(Characters.BackSpace)")},
+            {SegmentNames.CharactersEscape, new RegexString(@"\e", @".Characters(Characters.Escape)")},
+            {SegmentNames.CharactersLetter, new RegexString(@"a-zA-Z", @".Characters(Characters.Letter)")},
+            {SegmentNames.CharactersUpperCaseLetter, new RegexString(@"A-Z", @".Characters(Characters.UpperCaseLetter)")},
+            {SegmentNames.CharactersLowerCaseLetter, new RegexString(@"a-z", @".Characters(Characters.LowerCaseLetter)")},
+            {SegmentNames.AlternativeBegin, new RegexString(@"(?:", @".Capture(")},
+            {SegmentNames.AlternativeSeparator, new RegexString(@"|", @",")},
+            {SegmentNames.ForbiddenCharsBegin, new RegexString(@"[^", @".CharacterNotIn(")},
+            {SegmentNames.ForbiddenCharsEnd, new RegexString(@"]", @")")},
         };
 
-        public static IDictionary<string, string> FormallydentifyableMagex = new Dictionary<string, string>()
+        public static IDictionary<SegmentNames, RegexString> PartiallyIdentifyableSegments = new Dictionary<SegmentNames, RegexString>()
         {
-            {CharactersAlphanumeric, @".Characters(Characters.Alphanumeric)"},
-            {CharactersNonAlphanumeric, @".Characters(Characters.NonAlphanumeric)"},
-            {CharactersNumeral, @".Characters(Characters.Numeral)"},
-            {CharactersNonNumeral, @".Characters(Characters.NonNumeral)"},
-            {CharactersWhiteSpaces, @".Characters(Characters.WhiteSpace)"},
-            {CharactersNonWhiteSpace, @".Characters(Characters.NonWhiteSpace)"},
-            {CharactersCarriageReturn, @".Characters(Characters.CarriageReturn)"},
-            {CharactersNewLine, @".Characters(Characters.NewLine)"},
-            {CharactersFormFeed, @".Characters(Characters.FormFeed)"},
-            {CharactersTab, @".Characters(Characters.Tab)"},
-            {CharactersVerticalTab, @".Characters(Characters.VerticalTab)"},
-            {CharactersBell, @".Characters(Characters.Bell)"},
-            {CharactersBackSpace, @".Characters(Characters.BackSpace)"},
-            {CharactersEscape, @".Characters(Characters.Escape)"},
-            {CharactersLetter, @".Characters(Characters.Letter)"},
-            {CharactersUpperCaseLetter, @".Characters(Characters.UpperCaseLetter)"},
-            {CharactersLowerCaseLetter, @".Characters(Characters.LowerCaseLetter)"},
-        
-            {AlternativeBegin, @".Capture("},
-            {AlternativeSeparator, @","},
-
-            {ForbiddenCharsBegin, @".CharacterNotIn("},
-            {ForbiddenCharsEnd, @")"},
+            {SegmentNames.ParenthesisEnd, new RegexString(@")", @")")},
+            {SegmentNames.ParenthesisBegin, new RegexString(@"(", @"(")}, // False positive if followed by "?:", but will be matched on smaller ensembles only so should be ok...
         };
+    }
 
-        public static IDictionary<string, string> PartiallyIdentifyableSegments = new Dictionary<string, string>()
+    public class RegexString
+    {
+        public string Regex { get; set; }
+        public string Magex { get; set; }
+
+        public RegexString(string regex, string magex)
         {
-            {AlternativeOrGroupEnd, @")"},
-            {GroupBegin, @"("}, // False positive if followed by "?:", but will be matched on smaller ensembles only so should be ok...
-        };
+            this.Regex = regex;
+            this.Magex = magex;
+        }
     }
 }

@@ -1,9 +1,10 @@
 ﻿namespace MagicExpression.Elements
 {
-	using System.Collections.Generic;
-	using System.Text;
+    using MagicExpression.RegexParts;
+    using System.Collections.Generic;
+    using System.Text;
 
-	public class Alternative : IExpressionElement
+    public class Alternative : IExpressionElement
 	{
 		private List<IExpressionElement> elements;
 
@@ -18,19 +19,19 @@
 			{
 				StringBuilder sb = new StringBuilder();
 
-				sb.Append(RegexParts.FormallydentifyableSegments["AlternativeBegin"]);
+				sb.Append(RegexParts.FormallydentifyableSegments[SegmentNames.AlternativeBegin]);
 
 				for (var i = 0; i < elements.Count; i++)
 				{
 					if (i > 0)
 					{
-                        sb.Append(RegexParts.FormallydentifyableSegments["AlternativeSeparator"]);
+                        sb.Append(RegexParts.FormallydentifyableSegments[SegmentNames.AlternativeSeparator]);
 					}
 
 					sb.Append(this.elements[i].Expression);
 				}
 
-                sb.Append(RegexParts.FormallydentifyableSegments["AlternativeEnd"]);
+                sb.Append(RegexParts.FormallydentifyableSegments[SegmentNames.ParenthesisEnd]);
 
 				return sb.ToString();
 			}

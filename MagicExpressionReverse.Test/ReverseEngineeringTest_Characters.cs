@@ -24,7 +24,7 @@ namespace MagicExpressionReverse.Test
         {
             var expression = @"\d";
             var reverseBuilder = new ReverseBuilder(expression);
-            Assert.AreEqual(RegexParts.CharactersNumeral, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
+            Assert.AreEqual(SegmentNames.CharactersNumeral, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace MagicExpressionReverse.Test
         {
             var expression = @"\s";
             var reverseBuilder = new ReverseBuilder(expression);
-            Assert.AreEqual(RegexParts.CharactersWhiteSpaces, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
+            Assert.AreEqual(SegmentNames.CharactersWhiteSpaces, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
         }
 
         [TestMethod]
@@ -42,8 +42,8 @@ namespace MagicExpressionReverse.Test
             var reverseBuilder = new ReverseBuilder(expression);
 
             Assert.AreEqual(2, reverseBuilder.Segments.Count);
-            Assert.AreEqual(RegexParts.CharactersNumeral, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
-            Assert.AreEqual(RegexParts.CharactersWhiteSpaces, (reverseBuilder.Segments[1] as FormallyIdentifiedSegment).CharacterSet);
+            Assert.AreEqual(SegmentNames.CharactersNumeral, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
+            Assert.AreEqual(SegmentNames.CharactersWhiteSpaces, (reverseBuilder.Segments[1] as FormallyIdentifiedSegment).CharacterSet);
         }
 
         [TestMethod]
@@ -53,9 +53,9 @@ namespace MagicExpressionReverse.Test
             var reverseBuilder = new ReverseBuilder(expression);
 
             Assert.AreEqual(3, reverseBuilder.Segments.Count);
-            Assert.AreEqual(RegexParts.CharactersNumeral, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
-            Assert.AreEqual(RegexParts.CharactersWhiteSpaces, (reverseBuilder.Segments[1] as FormallyIdentifiedSegment).CharacterSet);
-            Assert.AreEqual(RegexParts.CharactersNumeral, (reverseBuilder.Segments[2] as FormallyIdentifiedSegment).CharacterSet);
+            Assert.AreEqual(SegmentNames.CharactersNumeral, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
+            Assert.AreEqual(SegmentNames.CharactersWhiteSpaces, (reverseBuilder.Segments[1] as FormallyIdentifiedSegment).CharacterSet);
+            Assert.AreEqual(SegmentNames.CharactersNumeral, (reverseBuilder.Segments[2] as FormallyIdentifiedSegment).CharacterSet);
         }
 
         [TestMethod]
