@@ -43,7 +43,7 @@ namespace MagicExpression
         public static IDictionary<SegmentNames, RegexString> FormallydentifyableSegments = new Dictionary<SegmentNames, RegexString>()
         {
             // The escape is transparent in itself
-            {SegmentNames.EscapingBackslash, new RegexString(@"\\", @"\\") },
+            {SegmentNames.EscapingBackslash, new RegexString(@"\\", @"") },
 
             {SegmentNames.CharactersAlphanumeric, new RegexString(@"\w",  @".CharacterIn(Characters.Alphanumeric)")},
             {SegmentNames.CharactersNonAlphanumeric, new RegexString(@"\W", @".CharacterIn(Characters.NonAlphanumeric)")},

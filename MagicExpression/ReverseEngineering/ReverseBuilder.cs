@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -83,7 +84,17 @@ namespace MagicExpression.ReverseEngineering
                 if (list.Count == 0)
                     list.Add(string.Empty);
 
-                list[0] += (segment as FormallyIdentifiedSegment).Magex.ToString();
+                if (segment as EscapingSegment != null)
+                    continue; //Skip the escaping segments ( => // is an escaping + an unidentified)
+                else if (segment as FormallyIdentifiedSegment != null)
+                    list[0] += (segment as FormallyIdentifiedSegment).Magex.ToString();
+                else if (segment as UnidentifiedSegment != null)
+                {
+                    var rgxSeg = (segment as UnidentifiedSegment).RegexSegment.ToString();
+                    list[0] += String.Format(".Character('{0}')", rgxSeg != @"\\" ? rgxSeg : @"\\" + rgxSeg);
+                }
+                else
+                    throw new Exception("Upps, that shouldn't have happened... like... ever...");
             }
 
             // Do not forget that there may be multiple paths trough the segments
