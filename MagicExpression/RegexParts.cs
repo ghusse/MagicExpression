@@ -34,6 +34,8 @@ namespace MagicExpression
         ParenthesisBegin,
         ForbiddenCharsBegin,
         ForbiddenCharsEnd,
+        NamedBackReferenceBegin,
+        NamedBackReferenceEnd,
     }
 
     public static class RegexParts
@@ -61,6 +63,8 @@ namespace MagicExpression
             {SegmentNames.AlternativeSeparator, new RegexString(@"|", @",")},
             {SegmentNames.ForbiddenCharsBegin, new RegexString(@"[^", @".CharacterNotIn(")},
             {SegmentNames.ForbiddenCharsEnd, new RegexString(@"]", @")")},
+            {SegmentNames.NamedBackReferenceBegin, new RegexString(@"\k<", @".BackReference(") },
+            {SegmentNames.NamedBackReferenceEnd, new RegexString(@">", @")") },
         };
 
         public static IDictionary<SegmentNames, RegexString> PartiallyIdentifyableSegments = new Dictionary<SegmentNames, RegexString>()

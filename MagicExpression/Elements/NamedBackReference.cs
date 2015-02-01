@@ -6,8 +6,11 @@
 		public NamedBackReference(string name)
 			: base(name)
 		{
-			this.Expression = @"\k<" + name + ">";
-		}
+            // @"\k<" + name + ">"
+            this.Expression = RegexParts.FormallydentifyableSegments[SegmentNames.NamedBackReferenceBegin]
+                + name
+                + RegexParts.FormallydentifyableSegments[SegmentNames.NamedBackReferenceEnd];
+        }
 
 		public string Expression { get; private set; }
 	}
