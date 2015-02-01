@@ -24,7 +24,11 @@ namespace MagicExpressionReverse.Test
         {
             var expression = @"\d";
             var reverseBuilder = new ReverseBuilder(expression);
-            Assert.AreEqual(SegmentNames.CharactersNumeral, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
+            Assert.AreEqual(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.CharactersNumeral].Magex,
+                (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).Magex);
+           
+            //var magex = Magex.New().CharacterIn(Characters.Numeral);
+            Assert.AreEqual(".CharacterIn(Characters.Numeral)", reverseBuilder.MagexPossibilities[0]);
         }
 
         [TestMethod]
@@ -32,7 +36,8 @@ namespace MagicExpressionReverse.Test
         {
             var expression = @"\s";
             var reverseBuilder = new ReverseBuilder(expression);
-            Assert.AreEqual(SegmentNames.CharactersWhiteSpaces, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
+            Assert.AreEqual(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.CharactersWhiteSpaces].Magex,
+                (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).Magex);
         }
 
         [TestMethod]
@@ -42,8 +47,10 @@ namespace MagicExpressionReverse.Test
             var reverseBuilder = new ReverseBuilder(expression);
 
             Assert.AreEqual(2, reverseBuilder.Segments.Count);
-            Assert.AreEqual(SegmentNames.CharactersNumeral, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
-            Assert.AreEqual(SegmentNames.CharactersWhiteSpaces, (reverseBuilder.Segments[1] as FormallyIdentifiedSegment).CharacterSet);
+            Assert.AreEqual(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.CharactersNumeral].Magex,
+                (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).Magex);
+            Assert.AreEqual(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.CharactersWhiteSpaces].Magex,
+                (reverseBuilder.Segments[1] as FormallyIdentifiedSegment).Magex);
         }
 
         [TestMethod]
@@ -53,9 +60,12 @@ namespace MagicExpressionReverse.Test
             var reverseBuilder = new ReverseBuilder(expression);
 
             Assert.AreEqual(3, reverseBuilder.Segments.Count);
-            Assert.AreEqual(SegmentNames.CharactersNumeral, (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).CharacterSet);
-            Assert.AreEqual(SegmentNames.CharactersWhiteSpaces, (reverseBuilder.Segments[1] as FormallyIdentifiedSegment).CharacterSet);
-            Assert.AreEqual(SegmentNames.CharactersNumeral, (reverseBuilder.Segments[2] as FormallyIdentifiedSegment).CharacterSet);
+            Assert.AreEqual(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.CharactersNumeral].Magex, 
+                (reverseBuilder.Segments[0] as FormallyIdentifiedSegment).Magex);
+            Assert.AreEqual(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.CharactersWhiteSpaces].Magex,
+                (reverseBuilder.Segments[1] as FormallyIdentifiedSegment).Magex);
+            Assert.AreEqual(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.CharactersNumeral].Magex,
+                (reverseBuilder.Segments[2] as FormallyIdentifiedSegment).Magex);
         }
 
         [TestMethod]
@@ -86,7 +96,5 @@ namespace MagicExpressionReverse.Test
             var reverseBuilder = new ReverseBuilder(expression);
             Assert.AreEqual(3, reverseBuilder.Segments.Count);
         }
-
-
     }
 }

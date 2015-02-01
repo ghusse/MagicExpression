@@ -14,7 +14,7 @@ namespace MagicExpression.ReverseEngineering
 
         public IList<ISegment> Segments { get; set; }
 
-        public IList<string> Magex { get { return CreateMagex(); } }
+        public IList<string> MagexPossibilities { get { return ListMagexPossibilities(); } }
 
         public ReverseBuilder(string regex)
         {
@@ -39,12 +39,17 @@ namespace MagicExpression.ReverseEngineering
                     // Go through all the FormallydentifyableSegments until a match is found
                     foreach (var formallydentifyableSegment in RegexMagexLexicon.FormallydentifyableSegments)
                     {
+                        // Skip the escape as a special char, it is to be handled last or it will produce false positives
+                        if (formallydentifyableSegment.Key == SegmentNames.EscapingBackslash)
+                            continue;
+
                         var regexSegment = formallydentifyableSegment.Value.Regex;
+                        var magexSegment = formallydentifyableSegment.Value.Magex;
                         if (remainingRegexToMatch.StartsWith(regexSegment, IGNORE_CASE, CultureInfo.CurrentCulture))
                         {
                             var length = regexSegment.Length;
                             decomposedSegments.Add(new FormallyIdentifiedSegment(globalStartIndex, globalStartIndex + length, 
-                                regexSegment, formallydentifyableSegment.Key));
+                                regexSegment, magexSegment));
                             remainingRegexToMatch = remainingRegexToMatch.Remove(0, length);
                             globalStartIndex += length;
                             found = true;
@@ -68,11 +73,18 @@ namespace MagicExpression.ReverseEngineering
             return decomposedSegments;
         }
 
-        private IList<string> CreateMagex()
+        private IList<string> ListMagexPossibilities()
         {
-            var list = new List<string>();
+            var list = new List<string>(0);
 
             // Go through each segment and replace it with its magex equivalent
+            foreach(var segment in this.Segments)
+            {
+                if (list.Count == 0)
+                    list.Add(string.Empty);
+
+                list[0] += (segment as FormallyIdentifiedSegment).Magex.ToString();
+            }
 
             // Do not forget that there may be multiple paths trough the segments
 
