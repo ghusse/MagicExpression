@@ -8,6 +8,7 @@ namespace MagicExpression
     public enum SegmentNames
     {
         EscapingBackslash = 0,
+        Optimized,
 
         // FormallydentifyableSegments
         CharactersAlphanumeric,
@@ -36,6 +37,8 @@ namespace MagicExpression
         ForbiddenCharsEnd,
         NamedBackReferenceBegin,
         NamedBackReferenceEnd,
+        Literal,
+        
     }
 
     public static class RegexMagexLexicon
@@ -74,6 +77,13 @@ namespace MagicExpression
         {
             {SegmentNames.ParenthesisEnd, new RegexString(@")", @")")},
             {SegmentNames.ParenthesisBegin, new RegexString(@"(", @"(")}, // False positive if followed by "?:", but will be matched on smaller ensembles only so should be ok...
+        };
+
+        // Segments that are not identifyable, but used in the logic nonetheless
+        public static IDictionary<SegmentNames, RegexString> NotIdentifyableSegments = new Dictionary<SegmentNames, RegexString>()
+        {
+            {SegmentNames.Literal, new RegexString(@"", @".Literal(") },
+            {SegmentNames.Optimized, new RegexString(@"", @"") },
         };
     }
 

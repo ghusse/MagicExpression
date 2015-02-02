@@ -109,19 +109,8 @@ namespace MagicExpressionReverse.Test
             Assert.AreEqual(3, reverseBuilder.Segments.Count);
 
             //var magex = Magex.New().Character('\\').Character('s');
-            Assert.AreEqual(".Character('\\').Character('s')", reverseBuilder.MagexPossibilities[0]);
-        }
-
-        [TestMethod]
-        [Ignore] // Should be able to concatenate multiple consecutive ".Character(a)[...].Character(z)" into one ".Literal(a..z)"
-        public void ReverseEngineeringTest_EscapingWhitespace2()
-        {
-            var expression = @"\\s";
-            var reverseBuilder = new ReverseBuilder(expression);
-            Assert.AreEqual(3, reverseBuilder.Segments.Count);
-
             //var magex = Magex.New().Literal("\\s");
-            Assert.AreEqual(".Literal('\\s')", reverseBuilder.MagexPossibilities[0]);
+            Assert.AreEqual(".Literal(\"\\s\")", reverseBuilder.MagexPossibilities[0]);
         }
     }
 }
