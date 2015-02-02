@@ -101,6 +101,7 @@ namespace MagicExpressionReverse.Test
             Assert.IsTrue(reverseBuilder.Segments[2] is EscapingSegment);
         }
 
+        [Ignore] //Concept work required to handle wrapping literals (X)
         [TestMethod]
         public void ReverseEngineeringTest_EscapingWhitespace()
         {

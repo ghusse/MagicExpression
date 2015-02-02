@@ -176,3 +176,6 @@ FakesAssemblies/
 # Ignore Nuget Packages
 /NugetPackage/*.nupkg
 MagicExpression.sln.ide/storage.ide
+MagicExpression.sln.ide/edb.chk
+MagicExpression.sln.ide/edbres00001.jrs
+MagicExpression.sln.ide/edbres00002.jrs

@@ -19,21 +19,24 @@
 			{
 				StringBuilder sb = new StringBuilder();
 
-				sb.Append(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.AlternativeBegin]);
+                //sb.Append(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.AlternativeBegin]);
+                sb.Append("(?:");
 
 				for (var i = 0; i < elements.Count; i++)
 				{
 					if (i > 0)
 					{
-                        sb.Append(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.AlternativeSeparator]);
+                        //sb.Append(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.AlternativeSeparator]);
+                        sb.Append("|");
 					}
 
 					sb.Append(this.elements[i].Expression);
 				}
 
-                sb.Append(RegexMagexLexicon.FormallydentifyableSegments[SegmentNames.ParenthesisEnd]);
+                //sb.Append(RegexMagexLexicon.PartiallyIdentifyableSegments[SegmentNames.ParenthesisEnd]);
+                sb.Append(")");
 
-				return sb.ToString();
+                return sb.ToString();
 			}
 		}
 	}
