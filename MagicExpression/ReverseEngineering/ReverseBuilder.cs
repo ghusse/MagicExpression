@@ -122,7 +122,7 @@ namespace MagicExpression.ReverseEngineering
                 {
                     OrderedList[i] = new NotIdentifyableSegment(segment.StartIndex, nextSegment.StopIndex, 
                         segment.RegexSegment + nextSegment.RegexSegment, SegmentNames.Literal);
-                    OrderedList[i + 1] = new PotentiallyIdentifiedSegment(nextSegment.StartIndex, nextSegment.StopIndex, string.emp, SegmentNames.ParenthesisEnd);
+                    OrderedList[i + 1] = new PotentiallyIdentifiedSegment(nextSegment.StartIndex, nextSegment.StopIndex, string.Empty, SegmentNames.ParenthesisEnd);
                 }
             }
 
