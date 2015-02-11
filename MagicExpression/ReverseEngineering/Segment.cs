@@ -1,28 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace MagicExpression.ReverseEngineering
 {
     public interface ISegment
     {
         string RegexSegment { get; set; }
-        int StartIndex { get; set; }
-        int StopIndex { get; set; }
         SegmentNames Name { get; set; }
+
+        bool IsIdentified { get; }
     }
 
     public abstract class Segment : ISegment
     {
-        public int StartIndex { get; set; }
-        public int StopIndex { get; set; }
-
         public string RegexSegment { get; set; }
 
         public abstract SegmentNames Name { get; set; }
 
-        public Segment(int _startIndex, int _stopIndex, string _regexSegment)
+        public virtual bool IsIdentified { get { return false; } }
+
+        public Segment(string _regexSegment)
         {
-            this.StartIndex = _startIndex;
-            this.StopIndex = _stopIndex;
             this.RegexSegment = _regexSegment;
         }
     }
@@ -33,8 +32,10 @@ namespace MagicExpression.ReverseEngineering
 
         public string Magex { get; set; }
 
-        public IdentifiedSegment(int _startIndex, int _stopIndex, string _regexSegment, SegmentNames _name)
-            :base(_startIndex, _stopIndex, _regexSegment)
+        public override bool IsIdentified { get { return true; } }
+
+        public IdentifiedSegment(string _regexSegment, SegmentNames _name)
+            :base(_regexSegment)
         {
             this.Name = _name;
             this.Magex = GetMagex(this.Name);
@@ -55,8 +56,8 @@ namespace MagicExpression.ReverseEngineering
 
     public class EscapingSegment: IdentifiedSegment
     {
-        public EscapingSegment(int _startIndex, int _stopIndex, string _regexSegment)
-            : base(_startIndex, _stopIndex, _regexSegment, SegmentNames.EscapingBackslash)
+        public EscapingSegment(string _regexSegment)
+            : base(_regexSegment, SegmentNames.EscapingBackslash)
         {
         }
     }
@@ -69,40 +70,40 @@ namespace MagicExpression.ReverseEngineering
             set { throw new NotImplementedException(); }
         }
 
-        public UnidentifiedSegment(int _startIndex, int _stopIndex, string _regexSegment) 
-            : base(_startIndex, _stopIndex, _regexSegment)
+        public UnidentifiedSegment(string _regexSegment) 
+            : base( _regexSegment)
         {
         }
     }
 
     public class FormallyIdentifiedSegment: IdentifiedSegment
     {
-        public FormallyIdentifiedSegment(int _startIndex, int _stopIndex, string _regexSegment, SegmentNames _name)
-            : base(_startIndex, _stopIndex, _regexSegment, _name)
+        public FormallyIdentifiedSegment(string _regexSegment, SegmentNames _name)
+            : base(_regexSegment, _name)
         {
         }
     }
 
     public class PotentiallyIdentifiedSegment : IdentifiedSegment
     {
-        public PotentiallyIdentifiedSegment(int _startIndex, int _stopIndex, string _regexSegment, SegmentNames _name)
-            : base(_startIndex, _stopIndex, _regexSegment, _name)
+        public PotentiallyIdentifiedSegment(string _regexSegment, SegmentNames _name)
+            : base(_regexSegment, _name)
         {
         }
     }
 
     public class NotIdentifyableSegment : IdentifiedSegment
     {
-        public NotIdentifyableSegment(int _startIndex, int _stopIndex, string _regexSegment, SegmentNames _name)
-            : base(_startIndex, _stopIndex, _regexSegment, _name)
+        public NotIdentifyableSegment(string _regexSegment, SegmentNames _name)
+            : base(_regexSegment, _name)
         {
         }
     }
 
     public class OptimizedSegment : IdentifiedSegment
     {
-        public OptimizedSegment(int _startIndex, int _stopIndex)
-            :base(_startIndex, _stopIndex, "", SegmentNames.Optimized)
+        public OptimizedSegment()
+            :base("", SegmentNames.Optimized)
         {
         }
     }

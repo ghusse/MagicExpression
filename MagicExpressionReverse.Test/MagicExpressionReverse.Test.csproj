@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NodeTest.cs" />
     <Compile Include="ReverseEngineeringTest_Characters.cs" />
     <Compile Include="ReverseEngineeringTest_ForbiddenChars.cs" />
     <Compile Include="ReverseEngineeringTest_BackReference.cs" />

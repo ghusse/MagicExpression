@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MagicExpression
 {
@@ -43,11 +44,8 @@ namespace MagicExpression
 
     public static class RegexMagexLexicon
     {
-        public static IDictionary<SegmentNames, RegexString> FormallydentifyableSegments = new Dictionary<SegmentNames, RegexString>()
+        public static IDictionary<SegmentNames, RegexString> FormallydentifyableSegmentsWithBackslashes = new Dictionary<SegmentNames, RegexString>()
         {
-            // The escape is transparent in itself
-            {SegmentNames.EscapingBackslash, new RegexString(@"\\", @"") },
-
             {SegmentNames.CharactersAlphanumeric, new RegexString(@"\w",  @".CharacterIn(Characters.Alphanumeric)")},
             {SegmentNames.CharactersNonAlphanumeric, new RegexString(@"\W", @".CharacterIn(Characters.NonAlphanumeric)")},
             {SegmentNames.CharactersNumeral, new RegexString(@"\d", @".CharacterIn(Characters.Numeral)")},
@@ -62,9 +60,13 @@ namespace MagicExpression
             {SegmentNames.CharactersBell, new RegexString(@"\a", @".CharacterIn(Characters.Bell)")},
             {SegmentNames.CharactersBackSpace, new RegexString(@"\b", @".CharacterIn(Characters.BackSpace)")},
             {SegmentNames.CharactersEscape, new RegexString(@"\e", @".CharacterIn(Characters.Escape)")},
-            {SegmentNames.CharactersLetter, new RegexString(@"a-zA-Z", @".CharacterIn(Characters.Letter)")},
-            {SegmentNames.CharactersUpperCaseLetter, new RegexString(@"A-Z", @".CharacterIn(Characters.UpperCaseLetter)")},
-            {SegmentNames.CharactersLowerCaseLetter, new RegexString(@"a-z", @".CharacterIn(Characters.LowerCaseLetter)")},
+        };
+
+        public static IDictionary<SegmentNames, RegexString> FormallydentifyableSegments = new Dictionary<SegmentNames, RegexString>()
+        {
+            {SegmentNames.CharactersLetter, new RegexString(@"[a-zA-Z]", @".CharacterIn(Characters.Letter)")},
+            {SegmentNames.CharactersUpperCaseLetter, new RegexString(@"[A-Z]", @".CharacterIn(Characters.UpperCaseLetter)")},
+            {SegmentNames.CharactersLowerCaseLetter, new RegexString(@"[a-z]", @".CharacterIn(Characters.LowerCaseLetter)")},
             {SegmentNames.AlternativeBegin, new RegexString(@"(?:", @".Capture(")},
             {SegmentNames.AlternativeSeparator, new RegexString(@"|", @",")},
             {SegmentNames.ForbiddenCharsBegin, new RegexString(@"[^", @".CharacterNotIn(")},
@@ -77,6 +79,9 @@ namespace MagicExpression
         {
             {SegmentNames.ParenthesisEnd, new RegexString(@")", @")")},
             {SegmentNames.ParenthesisBegin, new RegexString(@"(", @"(")}, // False positive if followed by "?:", but will be matched on smaller ensembles only so should be ok...
+            
+            // Escape
+            //{SegmentNames.EscapingBackslash, new RegexString(@"\\", @"") },
         };
 
         // Segments that are not identifyable, but used in the logic nonetheless

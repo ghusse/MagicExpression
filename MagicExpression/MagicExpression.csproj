@@ -62,11 +62,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegexCharacters.cs" />
     <Compile Include="RegexMagexLexicon.cs" />
+    <Compile Include="ReverseEngineering\ExtensionMethods.cs" />
+    <Compile Include="ReverseEngineering\Node.cs" />
     <Compile Include="ReverseEngineering\ReverseBuilder.cs" />
     <Compile Include="ReverseEngineering\Segment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReverseEngineering\ReverseEngineeringClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
