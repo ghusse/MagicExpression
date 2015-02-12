@@ -1,10 +1,11 @@
 ﻿namespace MagicExpression
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Text;
-	using System.Text.RegularExpressions;
-	using MagicExpression.Elements;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using MagicExpression.Elements;
+    using MagicExpression.ReverseEngineering;
 
     public class Magex : IRepeatable, IRepeat, ILasiness, IBuilder
 	{
@@ -68,13 +69,13 @@
 		/// </value>
 		public RegexOptions Options { get; set; }
 
-		/// <summary>
-		/// Gets the regular expression constructed with this instance of Magic Expression
-		/// </summary>
-		/// <value>
-		/// The Regex object
-		/// </value>
-		public Regex Regex
+        /// <summary>
+        /// Gets the regular expression constructed with this instance of Magic Expression
+        /// </summary>
+        /// <value>
+        /// The Regex object
+        /// </value>
+        public Regex Regex
 		{
 			get
 			{
@@ -470,6 +471,32 @@
             return this;
         }
 
-		#endregion
-	}
+        #endregion
+
+        #region ReverseEngineering
+
+        public static string ReverseEngineer(string expression)
+        {
+            //Create the AST
+            var root = Node.DecomposeRecusively(new Node(Node.NOT_IDENTIFIED) { RegularExpressionSegment = expression });
+
+            //Convert the AST into a list
+            var outputList = new List<ISegment>(0);
+            Node.ConvertASTToSegmentsList(root, outputList);
+
+            //Convert the list into a Magex
+            return string.Format("Magex.New(){0};", ConvertToMagex(outputList));
+        }
+
+        private static string ConvertToMagex(IList<ISegment> list)
+        {
+            var outputString = "";
+
+
+
+            return outputString;
+        }
+
+        #endregion
+    }
 }

@@ -122,7 +122,10 @@ namespace MagicExpression.ReverseEngineering
             if (currentNode.IsIdentified)
                 listToFill.Add(new FormallyIdentifiedSegment(currentNode.RegularExpressionSegment, currentNode.NodeType));
             else
-                listToFill.Add(new UnidentifiedSegment(currentNode.RegularExpressionSegment));
+                if (currentNode.RegularExpressionSegment.Length == 1)
+                    listToFill.Add(new FormallyIdentifiedSegment(currentNode.RegularExpressionSegment, SegmentNames.CharacterSingle));
+                else
+                    listToFill.Add(new FormallyIdentifiedSegment(currentNode.RegularExpressionSegment, SegmentNames.Literal));
 
             if (currentNode.RightNode != null)
                 ConvertASTToSegmentsList(currentNode.RightNode, listToFill);

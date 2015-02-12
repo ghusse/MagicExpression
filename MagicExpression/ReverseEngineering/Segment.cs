@@ -43,14 +43,19 @@ namespace MagicExpression.ReverseEngineering
 
         protected string GetMagex(SegmentNames name)
         {
-            if (RegexMagexLexicon.FormallydentifyableSegments.ContainsKey(name))
-                return RegexMagexLexicon.FormallydentifyableSegments[name].Magex;
-            else if (RegexMagexLexicon.PartiallyIdentifyableSegments.ContainsKey(name))
-                return RegexMagexLexicon.PartiallyIdentifyableSegments[name].Magex;
-            else if (RegexMagexLexicon.NotIdentifyableSegments.ContainsKey(name))
-                return RegexMagexLexicon.NotIdentifyableSegments[name].Magex;
-            else
-                throw new Exception(String.Format("SegmentName '{0}' not found in the lexicon", name));
+            var Lexicons = new[]
+            {
+                RegexMagexLexicon.FormallydentifyableSegmentsWithBackslashes,
+                RegexMagexLexicon.FormallydentifyableSegments,
+                RegexMagexLexicon.PartiallyIdentifyableSegments,
+                RegexMagexLexicon.NotIdentifyableSegments,
+            };
+
+            foreach(var lex in Lexicons)
+                if (lex.ContainsKey(name))
+                    return lex[name].Magex;
+
+            throw new Exception(String.Format("SegmentName '{0}' not found in the lexicon", name));
         }
     }
 

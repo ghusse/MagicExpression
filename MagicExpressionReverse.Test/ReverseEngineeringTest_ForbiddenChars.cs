@@ -1,4 +1,5 @@
-﻿using MagicExpression.ReverseEngineering;
+﻿using MagicExpression;
+using MagicExpression.ReverseEngineering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -14,21 +15,16 @@ namespace MagicExpressionReverse.Test
         [TestMethod]
         public void ReverseEngineeringTest_SimplyForbiddenChars()
         {
-            var expression = @"[^abc]";
-            var reverseBuilder = new ReverseBuilder(expression);
-
-            // Soooo wrong currently takes the groups as well "(" and ")"
-            Assert.AreEqual(5, reverseBuilder.Segments.Count);
+            //Magex.New().CharacterNotIn("abc");
+            Assert.AreEqual("Magex.New().CharacterNotIn(\"abc\");", Magex.ReverseEngineer(@"[^abc]"));
         }
 
+        [Ignore] //Not sure what this should do
         [TestMethod]
         public void ReverseEngineeringTest_ForbiddenCharsWithEscape()
         {
-            var expression = @"[^abc\\]]";
-            var reverseBuilder = new ReverseBuilder(expression);
-
-            // Soooo wrong currently takes the groups as well "(" and ")"
-            Assert.AreEqual(8, reverseBuilder.Segments.Count);
+            //Magex.New().CharacterNotIn("abc\\]");
+            Assert.AreEqual("Magex.New().CharacterNotIn(\"abc\");", Magex.ReverseEngineer(@"[^abc\\]]"));
         }
     }
 }

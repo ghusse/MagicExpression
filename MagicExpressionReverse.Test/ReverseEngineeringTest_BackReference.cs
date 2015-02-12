@@ -1,4 +1,5 @@
-﻿using MagicExpression.ReverseEngineering;
+﻿using MagicExpression;
+using MagicExpression.ReverseEngineering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -14,21 +15,16 @@ namespace MagicExpressionReverse.Test
         [TestMethod]
         public void ReverseEngineeringTest_BackReference()
         {
-            var expression = @"\k<abc>def";
-            var reverseBuilder = new ReverseBuilder(expression);
-
-            // "abc" is recognized as a sequence of three characters 
-            Assert.AreEqual(8, reverseBuilder.Segments.Count);
+            //Magex.New().BackReference("abc").Literal("def");
+            Assert.AreEqual("Magex.New().BackReference(\"abc\").Literal(\"def\");", Magex.ReverseEngineer(@"\k<abc>def"));
         }
 
+        [Ignore] //Not sure what the output of this should be
         [TestMethod]
         public void ReverseEngineeringTest_BackReferenceWithBS()
         {
-            var expression = @"\k<a\dcd>def";
-            var reverseBuilder = new ReverseBuilder(expression);
-
-            // "\d" is recognized as a special sequence, not sure if this should be as this
-            Assert.AreEqual(9, reverseBuilder.Segments.Count);
+            //Magex.New().BackReference("abc").Literal("def");
+            Assert.AreEqual("Magex.New().BackReference(\"abc\").Literal(\"def\");", Magex.ReverseEngineer(@"\k<a\dcd>def"));
         }
     }
 }
