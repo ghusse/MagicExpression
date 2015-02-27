@@ -20,7 +20,7 @@ namespace MagicExpression.Test
             #region
             magicWand.Character('-').Repeat.AtMostOnce()
                      .CharacterIn(Characters.Numeral).Repeat.Any()
-                     .Character('.').Repeat.Once()
+                     .Character('.')
                      .CharacterIn(Characters.Numeral).Repeat.AtLeastOnce();
             #endregion
 

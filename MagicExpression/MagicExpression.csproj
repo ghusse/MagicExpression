@@ -64,6 +64,7 @@
     <Compile Include="RegexMagexLexicon.cs" />
     <Compile Include="ReverseEngineering\Node.cs" />
     <Compile Include="ReverseEngineering\Segment.cs" />
+    <Compile Include="ReverseEngineering\StringExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReverseEngineering\ReverseEngineeringClassDiagram.cd" />

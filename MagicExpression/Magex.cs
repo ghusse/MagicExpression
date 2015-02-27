@@ -477,14 +477,7 @@
 
         public static string ReverseEngineer(string expression)
         {
-            //Create the AST
-            var root = Node.DecomposeRecusively(new Node(Node.NOT_IDENTIFIED) { RegularExpressionSegment = expression });
-
-            //Convert the AST into a list
-            var outputList = new List<ISegment>(0);
-            Node.ConvertASTToSegmentsList(root, outputList);
-
-            //Convert the list into a Magex
+            IList<ISegment> outputList = expression.ParseMagex();
             return string.Format("Magex.New(){0};", ConvertToMagex(outputList));
         }
 
