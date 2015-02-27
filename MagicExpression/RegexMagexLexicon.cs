@@ -31,7 +31,7 @@ namespace MagicExpression
                 new RegMag(@"(?:", @".Capture("),
                 new RegMag(@"|", @","),
                 new RegMag(@"[^", @".CharacterNotIn("),
-                new RegMag(@"]", @")"),
+
                 new RegMag(@"\k<", @".BackReference("),
                 new RegMag(@">", @")"),
 
@@ -43,6 +43,9 @@ namespace MagicExpression
 
                 new RegMag(@")", @")"),
                 new RegMag(@"(", @"("),
+
+                new RegMag(@"[", @".CharacterIn("),
+                new RegMag(@"]", @")"),
             };
         }
     }
