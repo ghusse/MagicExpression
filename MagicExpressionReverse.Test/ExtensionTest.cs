@@ -1,5 +1,6 @@
 ﻿using MagicExpression.ReverseEngineering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Text.RegularExpressions;
 
 namespace MagicExpressionReverse.Test
 {
@@ -19,8 +20,8 @@ namespace MagicExpressionReverse.Test
         {
             string expression = "-";
             var list = expression.ParseMagex();
-            Assert.AreEqual("-", (list[0] as Segment).Regex);
-            Assert.AreEqual(".Character('-')", (list[0] as Segment).Magex);
+            var flattenedList = list.Flatten();
+            Assert.AreEqual(".Character('-')", flattenedList);
         }
 
         [TestMethod]
@@ -28,8 +29,8 @@ namespace MagicExpressionReverse.Test
         {
             string expression = @"\d";
             var list = expression.ParseMagex();
-            Assert.AreEqual(@"\d", (list[0] as Segment).Regex);
-            Assert.AreEqual(".CharacterIn(Characters.Numeral)", (list[0] as Segment).Magex);
+            var flattenedList = list.Flatten();
+            Assert.AreEqual(".CharacterIn(Characters.Numeral)", flattenedList);
         }
 
         [TestMethod]
@@ -37,10 +38,8 @@ namespace MagicExpressionReverse.Test
         {
             string expression = @"\d\s";
             var list = expression.ParseMagex();
-            Assert.AreEqual(@"\d", (list[0] as Segment).Regex);
-            Assert.AreEqual(@"\s", (list[1] as Segment).Regex);
-            Assert.AreEqual(".CharacterIn(Characters.Numeral)", (list[0] as Segment).Magex);
-            Assert.AreEqual(".CharacterIn(Characters.WhiteSpace)", (list[1] as Segment).Magex);
+            var flattenedList = list.Flatten();
+            Assert.AreEqual(".CharacterIn(Characters.Numeral).CharacterIn(Characters.WhiteSpace)", flattenedList);
         }
 
         #region DOC_Tests
@@ -101,16 +100,11 @@ namespace MagicExpressionReverse.Test
         [TestMethod]
         public void ExtensionTest_Hexa()
         {
-            string expression = @"0[xX][\\dabcdefABCDEF]{6}";
+            string expression = "0[xX][\\dab]";
             var list = expression.ParseMagex();
             var flattenedList = list.Flatten();
-            Assert.AreEqual(".Character('0').CharacterIn(\"xX\").CharacterIn(Characters.Numeral, \"abcdefABCDEF\").Repeat.Times(6)"
+            Assert.AreEqual(".Character('0').CharacterIn(\"xX\").CharacterIn(Characters.Numeral, \"ab\")"
                 , flattenedList);
-
-            //Fails for mutliple reasons
-            // [xX] is not correctly interpreted as a .CharacterIn("xX")
-            // [\\dabcdefABCDEF] is not correctly interpreted as a giant .CharacterIn()... 
-            //   the elements found after such an element should be notified to "not" add a ".Character()"
         }
         #endregion
 

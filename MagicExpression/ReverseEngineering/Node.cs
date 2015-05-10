@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MagicExpression.ReverseEngineering
 {
@@ -21,14 +22,40 @@ namespace MagicExpression.ReverseEngineering
     /// </summary>
     public class RegMag
     {
-        public RegMag(string key, string value)
+        public RegMag(string key, string value, bool _asRegex = false)
         {
             this.Key = key;
             this.Value = value;
+            this.asRegex = _asRegex;
+            if(this.asRegex)
+                this.regex = new Regex("^" + this.Key + "$");
         }
 
         public string Key { get; set; }
         public string Value { get; set; }
+
+        private bool asRegex;
+        private Regex regex = null;
+
+        public bool isMatch(string strToMatch)
+        {
+            try
+            {
+                // If the function contains a regex, handle it, otherwise simple string match
+                //return this.asRegex ? regex.IsMatch(strToMatch) : strToMatch.StartsWith(this.Key);
+                return this.asRegex ? regex.IsMatch(strToMatch) : strToMatch == this.Key;
+            }
+            catch (ArgumentException)
+            {
+                throw;
+            }
+        }
+
+        ///// <summary>
+        ///// Is true if the regex represents a wildcard that could swallow other functions. 
+        ///// If so, this function is to be handled last.
+        ///// </summary>
+        //public bool pickLast { get { return this.canCoverOtherCharacters; } }
     }
 
     //    public interface INode
