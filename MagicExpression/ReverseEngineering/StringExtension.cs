@@ -100,7 +100,9 @@ namespace MagicExpression.ReverseEngineering
                 for (var i = 0; i < list.Count(); i++)
                 {
                     var sg = list[i] as Segment;
-                    if (CanBeOptimized(sg))
+
+                    // Handle ".SingleCharacter" segments
+                    if (sg.Magex.StartsWith(".SingleChar"))
                     {
                         if (i == 0)
                         {
@@ -127,6 +129,33 @@ namespace MagicExpression.ReverseEngineering
                             {
                                 sg.Magex = string.Format(", \"{0}\"", targetCharacter);
                             }
+
+
+
+
+
+
+                            else
+                            {
+                                sg.Magex = sg.Magex.Replace("Single", "");
+                            }
+                        }
+                    }
+                    // Handle "Characters."
+                    else if(sg.Magex.StartsWith("Characters."))
+                    {
+                        // If this is the first item, add a CharacterIn before and close the ) after
+                        if (i == 0)
+                        {
+                            sg.Magex = string.Format(".CharacterIn({0})", sg.Magex);
+                        }
+                        else
+                        {
+                            var previousSegment = (list[i - 1] as Segment);
+                            var targetCharacter = sg.Magex.Substring(sg.Magex.Length - 3, 1);
+
+                            if(previousSegment.Magex.EndsWith(")"))
+                                sg.Magex = string.Format(".CharacterIn({0})", sg.Magex);
                         }
                     }
                 }
@@ -135,15 +164,6 @@ namespace MagicExpression.ReverseEngineering
             }
 
             return list.Select(i => (i as Segment).Magex).Aggregate((i, j) => i + j);
-        }
-
-        private static bool CanBeOptimized(Segment segment)
-        {
-            // A .SingleCharacter("x") inside of a CharacterIn should be simplified into "x"
-            // A .SingleCharacter("x") preceded by a "f" should be concatenated to "fx"
-            if (segment.Magex.StartsWith(".SingleChar")) return true;
-
-            return false;
         }
     }
 }

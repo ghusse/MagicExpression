@@ -27,7 +27,7 @@ namespace MagicExpressionReverse.Test
         [TestMethod]
         public void ExtensionTest_SimpleEnsemble()
         {
-            string expression = @"\d";
+            string expression = @"\d"; //Problem, this produces a Characters.Numeral, but not the CharacterIn that goes around it
             var list = expression.ParseMagex();
             var flattenedList = list.Flatten();
             Assert.AreEqual(".CharacterIn(Characters.Numeral)", flattenedList);
@@ -36,10 +36,24 @@ namespace MagicExpressionReverse.Test
         [TestMethod]
         public void ExtensionTest_SimpleEnsembles()
         {
-            string expression = @"\d\s";
+            string expression = @"\d\s"; //Problem, this produces a Characters.Numeral & Characters.Whitespace, 
+                                         // but not the CharacterIn that goes around them
+                                         // how to understand afterwards that those should be in two distinct ensembles?
             var list = expression.ParseMagex();
             var flattenedList = list.Flatten();
             Assert.AreEqual(".CharacterIn(Characters.Numeral).CharacterIn(Characters.WhiteSpace)", flattenedList);
+        }
+
+        [TestMethod]
+        public void ExtensionTest_SimpleNumeralEnsemble()
+        {
+            string expression = @"0-9";
+            var list = expression.ParseMagex();
+            var flattenedList = list.Flatten();
+            Assert.AreEqual(".CharacterIn(Characters.Numeral)", flattenedList);
+            // Currently fails beause 0 has no match, thus 0- is never tried... 
+            //     the computation logic is buggy, somehow, the solution space should be tried for eager matches
+                 but I don't get it right now
         }
 
         #region DOC_Tests

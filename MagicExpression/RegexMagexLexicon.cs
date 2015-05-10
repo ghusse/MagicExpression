@@ -33,7 +33,7 @@ namespace MagicExpression
                 new RegMag(@"\]", @")", AS_REGEX),
 
 
-                new RegMag(@"(\w-\w)+",@"Characters.Numeral", AS_REGEX),
+                new RegMag(@"(\d-\d)+",@"Characters.Numeral", AS_REGEX),
                 new RegMag(@"a-zA-Z",@"Characters.Letter"),
                 new RegMag(@"A-Z", @"Characters.UpperCaseLetter"),
                 new RegMag(@"a-z", @"Characters.LowerCaseLetter"),
