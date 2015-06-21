@@ -105,17 +105,27 @@
 			}
 		}
 
-		#endregion
+        #endregion
 
-		#region Characters
+        #region Utils
+        /// <summary>
+        /// Returns the regular expression produced by the Magex
+        /// </summary>
+        public override string ToString()
+        {
+            return this.Expression;
+        } 
+        #endregion
 
-		/// <summary>
-		/// Adds a character within a list of allowed chars
-		/// </summary>
-		/// <param name="chars">The allowed special chars.</param>
-		/// <param name="otherChars">The allowed chars (escaped, if necessary).</param>
-		/// <returns>This, as a repeatable object.</returns>
-		public IRepeatable CharacterIn(Characters chars, string otherChars)
+        #region Characters
+
+        /// <summary>
+        /// Adds a character within a list of allowed chars
+        /// </summary>
+        /// <param name="chars">The allowed special chars.</param>
+        /// <param name="otherChars">The allowed chars (escaped, if necessary).</param>
+        /// <returns>This, as a repeatable object.</returns>
+        public IRepeatable CharacterIn(Characters chars, string otherChars)
 		{
 			return this.CharacterIn(chars, otherChars.ToCharArray());
 		}
