@@ -7,19 +7,21 @@ Regular expression made simple in .Net
 MagicExpression for muggles
 ---------------------------
 
-    var magicWand = Magex.New();
+```cs
+var magicWand = Magex.New();
 
-    magicWand.Character('-').Repeat.AtMostOnce()
-             .CharacterIn(Characters.Numeral).Repeat.Any()
-             .Character('.')
-             .CharacterIn(Characters.Numeral).Repeat.AtLeastOnce();
+magicWand.Character('-').Repeat.AtMostOnce()
+         .CharacterIn(Characters.Numeral).Repeat.Any()
+         .Character('.')
+         .CharacterIn(Characters.Numeral).Repeat.AtLeastOnce();
 
-    // Creates a regex corresponding to
-    // -?[0-9]*\.[0-9]+
-    var floatingPointNumberDetector = new Regex(magicWand.Expression);
+// Creates a regex corresponding to
+// -?[0-9]*\.[0-9]+
+var floatingPointNumberDetector = new Regex(magicWand.Expression);
 
-    // Will match "1.234", "-1.234", "0.0", ".01"
-    // Will not match "0" "1,234", "0x234", "#1a4f66"
+// Will match "1.234", "-1.234", "0.0", ".01"
+// Will not match "0" "1,234", "0x234", "#1a4f66"
+```
 
 ### Add content to the MagicExpression
 
@@ -57,34 +59,36 @@ Some content can be repeated. For this content, you can use the Repeat property 
     
 ### Groups, captures and backreferences
 
-Usage
-     
-    var magicWand = Magex.New();
-    var notSoMagicWand = Magex.New();
+Usage:
 
-    // You can use sub expressions, created before
-    // or create them in place
-    magicWand.Group(notSoMagicWand.Character('a'));
-    magicWand.Group(Magex.New().Character('a'));
+```cs
+var magicWand = Magex.New();
+var notSoMagicWand = Magex.New();
 
-    // Or use lambdas
-    magicWand.Group(x => x.Character('a'));
+// You can use sub expressions, created before
+// or create them in place
+magicWand.Group(notSoMagicWand.Character('a'));
+magicWand.Group(Magex.New().Character('a'));
 
-    magicWand = Magex.New();
-    // Reference a previous capture
-    // Will match something like <strong>hello world</strong> (but please don't parse HTML with Magex in real life)
-    magicWand.Character('<')
-             .CaptureAs("tag", x => x.CharacterNotIn('>').Repeat.AtLeastOnce())
-             .Character('>')
-             .Character().Repeat.Any().Lazy()
-             .String("</")
-             .BackReference("tag")
-             .Character('>');
+// Or use lambdas
+magicWand.Group(x => x.Character('a'));
 
-    var badHtmlTagDetector = new Regex(magicWand.Expression);
+magicWand = Magex.New();
+// Reference a previous capture
+// Will match something like <strong>hello world</strong> (but please don't parse HTML with Magex in real life)
+magicWand.Character('<')
+         .CaptureAs("tag", x => x.CharacterNotIn('>').Repeat.AtLeastOnce())
+         .Character('>')
+         .Character().Repeat.Any().Lazy()
+         .String("</")
+         .BackReference("tag")
+         .Character('>');
 
-    // Will match "<strong>hello world</strong>", "<h1>A title</h1>"
-    // Will not match "<h1>A tag mismatch</strong>"
+var badHtmlTagDetector = new Regex(magicWand.Expression);
+
+// Will match "<strong>hello world</strong>", "<h1>A title</h1>"
+// Will not match "<h1>A tag mismatch</strong>"
+ ```
 
 * `Group(IExpressionElement)` Non capturing group
 * `Group(Action<IMagex>)` Non capturing group defined with a lambda
@@ -99,56 +103,62 @@ Usage
 
 Usage
 
-    var magicWand = Magex.New();
+```cs
+var magicWand = Magex.New();
 
-    // With subexpressions
-    magicWand.Alternative(
-        Magex.New().Character('a'),
-        Magex.New().Character('b')
-        );
+// With subexpressions
+magicWand.Alternative(
+    Magex.New().Character('a'),
+    Magex.New().Character('b')
+    );
 
-    var notSoMagicWand = Magex.New();
-    // With lambdas
-    notSoMagicWand.Alternative(
-        x => x.Character('a'),
-        x => x.Character('b')
-        );
+var notSoMagicWand = Magex.New();
+// With lambdas
+notSoMagicWand.Alternative(
+    x => x.Character('a'),
+    x => x.Character('b')
+    );
 
-    var alternativeDetector = new Regex(notSoMagicWand.Expression);
+var alternativeDetector = new Regex(notSoMagicWand.Expression);
 
-    // Will match "a", "b"
-    // Will not match "c"
+// Will match "a", "b"
+// Will not match "c"
+```
 
 * `Alternative(params IExpressionElement[])` Matches the string if it corresponds to one alternative
 * `Alternative(params Action<IMagex>[])` Same thing with 
 
 ### Laziness
 
-    // The group will match the smallest ensemble possible, e.g. "<em>" and "</em>"
-    var lazyMagicWand = Magex.New().Character('<')
-             .Group(x => x.Character().Repeat.Any().Lazy())
-             .Character('>');
+```cs
+// The group will match the smallest ensemble possible, e.g. "<em>" and "</em>"
+var lazyMagicWand = Magex.New().Character('<')
+         .Group(x => x.Character().Repeat.Any().Lazy())
+         .Character('>');
 
-    // The group will match the larges ensemble possible, e.g. the whole "<em>something</em>"
-    var greedyMagicWand = Magex.New().Character('<')
-             .Group(x => x.Character().Repeat.Any())
-             .Character('>');
+// The group will match the larges ensemble possible, e.g. the whole "<em>something</em>"
+var greedyMagicWand = Magex.New().Character('<')
+         .Group(x => x.Character().Repeat.Any())
+         .Character('>');
+```
           
 * `Lazy()` Makes the detection lazy instead of greedy (default)          
           
 ### Predefined Expressions
 
-Usage
+Usage:
 
-    var magicWand = Magex.New();
+```cs
+var magicWand = Magex.New();
 
-    // Produces an expression of type (?<![1-9])([0-9]|[1-4][0-2])(?![0-9])
-    magicWand.Builder.NumericRange(0, 42);
+// Produces an expression of type (?<![1-9])([0-9]|[1-4][0-2])(?![0-9])
+magicWand.Builder.NumericRange(0, 42);
 
-    var detector = new Regex(magicWand.Expression);
+var detector = new Regex(magicWand.Expression);
 
-    // Will match "0", "9", "20", "42"
-    // Will not match "43", "52"
+// Will match "0", "9", "20", "42"
+// Will not match "43", "52"
+```
 
 * 'Literal(string)' inserts a regular expression
 
