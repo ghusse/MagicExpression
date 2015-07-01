@@ -30,6 +30,7 @@
 
 		IMagex String(string val);
 		IRepeatable Character(char theChar);
+        IRepeatable Character(Characters ensemble);
 
 		IRepeatable Alternative(params IExpressionElement[] alternatives);
 		IRepeatable Alternative(params Action<IMagex>[] alternatives);

@@ -52,6 +52,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BackReferenceTest.cs" />
+    <Compile Include="GithubIssuesTests.cs" />
     <Compile Include="MagexBuilderTest.cs" />
     <Compile Include="RepetitionTest.cs" />
     <Compile Include="SyntaxTest.cs" />

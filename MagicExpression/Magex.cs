@@ -226,6 +226,17 @@
 			return this;
 		}
 
+        /// <summary>
+        /// Adds a specific character set
+        /// </summary>
+        /// <param name="theChar">A Characters enum.</param>
+        /// <returns>This, as a repeatable object.</returns>
+        public IRepeatable Character(Characters charEnsemble)
+        {
+            this.expression.Add(new StringElement(RegexCharacters.Get(charEnsemble)));
+            return this;
+        }
+
 		/// <summary>
 		/// Adds a line start/chain start (depending on options)
 		/// </summary>
