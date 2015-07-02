@@ -92,5 +92,14 @@
 			this.AssertIsMatching("0", "o", "^");
 			this.AssertIsNotMatching(string.Empty);
 		}
+
+        [TestMethod]
+        public void CharWithEnumTest()
+        {
+            this.Magic.Character(Characters.Numeral);
+
+            this.AssertIsMatching("0", "9");
+            this.AssertIsNotMatching(string.Empty, "$", "B");
+        }
 	}
 }

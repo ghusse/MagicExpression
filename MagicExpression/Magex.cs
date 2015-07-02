@@ -233,7 +233,7 @@
         /// <returns>This, as a repeatable object.</returns>
         public IRepeatable Character(Characters charEnsemble)
         {
-            this.expression.Add(new StringElement(RegexCharacters.Get(charEnsemble)));
+            this.expression.Add(new UnescapedStringElement(RegexCharacters.Get(charEnsemble)));
             return this;
         }
 
