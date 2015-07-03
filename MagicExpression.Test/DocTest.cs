@@ -122,7 +122,7 @@ namespace MagicExpression.Test
 		public void DocRange()
 		{
 			IMagex magicWand = Magex.New();
-			magicWand.Range(new object[] {0, 42});
+			magicWand.Range(0, 42);
 
 			var detector = new Regex(magicWand.Expression);
 
