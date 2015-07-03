@@ -6,7 +6,7 @@
 	using System.Text.RegularExpressions;
 	using MagicExpression.Elements;
 
-    public class Magex : IRepeatable, IRepeat, ILasiness, IBuilder
+    public partial class Magex : IRepeatable, IRepeat, ILasiness, IBuilder
 	{
 		#region Fields
 
@@ -479,15 +479,25 @@
 			return this;
 		}
 
-		public IRepeatable NumericRange(ulong from, ulong to)
-		{
-			this.expression.Add(new Literal(MagexBuilder.NumericRange(from, to)));
-			return this;
-		}
-
-        public IRepeatable NumericRange(ulong from, ulong to, RangeOptions options)
+        /// <summary>
+        /// Builds a range using the given bounds
+        /// </summary>
+        /// <remarks>There must be an even numbers of bounds</remarks>
+        /// <param name="bounds">An even number of parameters representing the bounds</param>
+        /// <returns>The range regex or throws an <see cref="ArgumentException"/> in case of odd number of bounds</returns>
+        public IRepeatable Range(params object[] bounds)
         {
-            this.expression.Add(new Literal(MagexBuilder.NumericRange(from, to, options)));
+            if (bounds.Length % 2 != 0)
+                throw new ArgumentException(
+                    string.Format("Odd number of arguments in the Range function: {0}",
+                    bounds.ToString()));
+
+            for (int i = 0; i < bounds.Length; i++)
+            {
+                this.expression.Add(new Literal(MagexBuilder.CreateRange(bounds[i], bounds[i + 1])));
+                i++;
+            }
+
             return this;
         }
 

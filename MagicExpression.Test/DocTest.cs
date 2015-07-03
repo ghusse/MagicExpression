@@ -122,8 +122,7 @@ namespace MagicExpression.Test
 		public void DocRange()
 		{
 			IMagex magicWand = Magex.New();
-
-			magicWand.Builder.NumericRange(0, 42);
+			magicWand.Range(new object[] {0, 42});
 
 			var detector = new Regex(magicWand.Expression);
 
@@ -189,10 +188,10 @@ namespace MagicExpression.Test
 			IMagex magicWand = Magex.New();
 
 			magicWand
-				.Builder.NumericRange(1, 255).Character('.')
-				.Builder.NumericRange(0, 255).Character('.')
-				.Builder.NumericRange(0, 255).Character('.')
-				.Builder.NumericRange(0, 255);
+				.Range(1, 255).Character('.')
+				.Range(0, 255).Character('.')
+				.Range(0, 255).Character('.')
+				.Range(0, 255);
 
 			var detector = new Regex(magicWand.Expression);
 

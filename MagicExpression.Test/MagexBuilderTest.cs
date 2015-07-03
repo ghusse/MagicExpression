@@ -6,45 +6,46 @@ namespace MagicExpression.Test
     public class MagexBuilderTest : MagicTest
     {
         [TestInitialize]
-		public override void Setup()
-		{
-			base.Setup();
-		}
+        public override void Setup()
+        {
+            base.Setup();
+        }
 
-    [TestMethod]
-    public void Range()
-    {
-			this.Magic.Builder.NumericRange(0, 42);
+        [TestMethod]
+        public void Range()
+        {
+            this.Magic.Range(0, 42);
 
-			this.AssertIsMatching("0", "9", "20", "42");
-			this.AssertIsNotMatching("43", "52");
+            this.AssertIsMatching("0", "9", "20", "42");
+            this.AssertIsNotMatching("43", "52");
+        }
+
+        [TestMethod]
+        public void RangeInBetween()
+        {
+            this.Magic.Character('a').Range(0, 42).Character('a');
+
+            this.AssertIsMatching("a0a", "a9a", "a20a", "a42a");
+            this.AssertIsNotMatching("", "%", "a9b", "b52a", "4242");
+        }
+
+        [TestMethod]
+        public void RangeCharBounds()
+        {
+            this.Magic.Range('a', 'g').Character('a');
+
+            this.AssertIsMatching("aa", "da");
+            this.AssertIsNotMatching("a", "5", string.Empty, "$");
+        }
+
+        [TestMethod]
+        [Ignore] //Not working yet
+        public void RangeMixedBounds()
+        {
+            this.Magic.Range(0, 4, 'a', 'g');
+
+            this.AssertIsMatching("0", "3", "a", "d");
+            this.AssertIsNotMatching("", "5", "k", string.Empty, "$");
+        }
     }
-
-		[TestMethod]
-		public void RangeInBetween()
-		{
-			this.Magic.Character('a').Builder.NumericRange(0, 42).Character('a');
-
-			this.AssertIsMatching("a0a", "a9a", "a20a", "a42a");
-			this.AssertIsNotMatching("", "%", "a9b", "b52a", "4242");
-		}
-
-		[TestMethod]
-		public void RangeWithLeadingZeros()
-		{
-            this.Magic.Builder.NumericRange(0, 42, RangeOptions.AllowLeadingZeroes);
-
-			this.AssertIsMatching("001");
-			this.AssertIsNotMatching("0001000");
-		}
-
-		[TestMethod]
-		public void RangeInBetweenWithLeadingZeros()
-		{
-			this.Magic.Character('a').Builder.NumericRange(0, 42, RangeOptions.AllowLeadingZeroes).Character('a');
-
-			this.AssertIsMatching("a001a");
-			this.AssertIsNotMatching("a0001000a");
-		}
-  }
 }

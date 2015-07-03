@@ -38,7 +38,14 @@
 		IRepeatable BackReference(string name);
 		IRepeatable BackReference(uint index);
 
+        //IRepeatable Range(object x1, object x2, 
+        //    object y1 = null, object y2 = null, 
+        //    object z1 = null, object z2 = null);
+
+        IRepeatable Range(params object[] boundy);
+
 		IBuilder Builder { get; }
+
 		#region Properties
 		RegexOptions Options { get; set; }
 
