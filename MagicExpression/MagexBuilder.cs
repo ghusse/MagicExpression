@@ -23,15 +23,29 @@ namespace MagicExpression
         public static string CreateRange(object from, object to)
         {
             if (isNumber(from) && isNumber(to))
-                return NumericRange(Convert.ToUInt64(from), Convert.ToUInt64(to));
-            else if (from is char && to is char)
-                return CharRange(Convert.ToChar(from), Convert.ToChar(to));
+            {
+                var fromLong = Convert.ToUInt64(from);
+                var toLong = Convert.ToUInt64(to);
 
+                //Simple numeric range with single digit numbers
+                if (0 <= fromLong && fromLong <= 9 && 0 <= toLong && toLong <= 9)
+                {
+                    return SimpleRange(fromLong, toLong);
+                }
+                //Complex range with multiple digit numbers
+                return NumericRange(fromLong, toLong);
+            }
+            else if (from is char && to is char)
+            {
+                return SimpleRange(Convert.ToChar(from), Convert.ToChar(to));
+            }
             else
+            {
                 throw new ArgumentException(
                     string.Format(
                     "Arguments '{0}' and '{1}' passed to the Range function cannot be handled",
                     from, to));
+            }
         }
 
         private static bool isNumber(object value)
@@ -47,12 +61,6 @@ namespace MagicExpression
                 || value is float
                 || value is double
                 || value is decimal;
-        }
-
-        private static bool isChar(object o)
-        {
-            try { Convert.ToChar(o); return true; }
-            catch (Exception) { return false; }
         }
 
         /// <summary>
@@ -79,18 +87,18 @@ namespace MagicExpression
         }
 
         /// <summary>
-        /// Creates a char range
+        /// Creates a range
         /// </summary>
         /// <param name="from">The first bound of the range</param>
         /// <param name="to">The second bound of the range, must be bigger (ASCII-wise) than the fist bound</param>
         /// <returns>The range as a string</returns>
-        /// <example>('a', 'd') ->  "[a-d]"</example>
-        public static string CharRange(char from, char to)
+        /// <example>('a', 'd') ->  "[a-d]" OR (3, 5) -> "[3-5]"</example>
+        public static string SimpleRange(object from, object to)
         {
-            if (from > to)
+            if (Convert.ToInt64(from) > Convert.ToInt64(to))
                 throw new ArgumentException(string.Format("From parameter {0} must be smaller (ASCII-wise) than the to {1} parameter", from, to));
 
-            return string.Format("[{0}-{1}]", from, to);
+            return string.Format("{0}-{1}", from, to);
         }
 
         #region Range support functions
@@ -147,7 +155,9 @@ namespace MagicExpression
                 }
 
                 if (!higher && increment < 10)
+                {
                     break;
+                }
             }
 
             ranges.Add((to + 1).ToString(CultureInfo.InvariantCulture));

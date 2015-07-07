@@ -41,7 +41,6 @@
   <ItemGroup>
     <Compile Include="Characters.cs" />
     <Compile Include="Elements\UnescapedStringElement.cs" />
-    <Compile Include="IBuilder.cs" />
     <Compile Include="MagexBuilder.cs" />
     <Compile Include="Elements\Alternative.cs" />
     <Compile Include="Elements\CapturingGroup.cs" />

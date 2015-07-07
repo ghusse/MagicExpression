@@ -6,7 +6,7 @@
 	using System.Text.RegularExpressions;
 	using MagicExpression.Elements;
 
-    public partial class Magex : IRepeatable, IRepeat, ILasiness, IBuilder
+    public class Magex : IRepeatable, IRepeat, ILasiness
 	{
 		#region Fields
 
@@ -90,14 +90,6 @@
 		/// Repetitions on the last element
 		/// </value>
 		public IRepeat Repeat
-		{
-			get
-			{
-				return this;
-			}
-		}
-
-		public IBuilder Builder
 		{
 			get
 			{
@@ -485,20 +477,22 @@
         /// <remarks>There must be an even numbers of bounds</remarks>
         /// <param name="bounds">An even number of parameters representing the bounds</param>
         /// <returns>The range regex or throws an <see cref="ArgumentException"/> in case of odd number of bounds</returns>
-        public IRepeatable Range(params object[] bounds)
+        public static string Range(params object[] bounds)
         {
             if (bounds.Length % 2 != 0)
                 throw new ArgumentException(
                     string.Format("Odd number of arguments in the Range function: {0}",
                     bounds.ToString()));
 
+            string outputRange = string.Empty;
+
             for (int i = 0; i < bounds.Length; i++)
             {
-                this.expression.Add(new Literal(MagexBuilder.CreateRange(bounds[i], bounds[i + 1])));
+                outputRange += MagexBuilder.CreateRange(bounds[i], bounds[i + 1]);
                 i++;
             }
 
-            return this;
+            return outputRange;
         }
 
 		#endregion
