@@ -20,6 +20,8 @@
 
 		IMagex Literal(string regex);
 
+        IMagex Range(params object[] bounds);
+
 		IRepeatable Group(IExpressionElement grouped);
 		IRepeatable Capture(IExpressionElement captured);
 		IRepeatable CaptureAs(string name, IExpressionElement captured);

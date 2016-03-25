@@ -472,12 +472,24 @@
 		}
 
         /// <summary>
+        /// Adds a range using the given bounds
+        /// </summary>
+        /// <remarks>There must be an even numbers of bounds</remarks>
+        /// <param name="bounds">An even number of parameters representing the bounds</param>
+        /// <returns>this</returns>
+        public IMagex Range(params object[] bounds)
+        {
+            this.Literal(Magex.RangeRegex(bounds));
+            return this;
+        }
+
+        /// <summary>
         /// Builds a range using the given bounds
         /// </summary>
         /// <remarks>There must be an even numbers of bounds</remarks>
         /// <param name="bounds">An even number of parameters representing the bounds</param>
         /// <returns>The range regex or throws an <see cref="ArgumentException"/> in case of odd number of bounds</returns>
-        public static string Range(params object[] bounds)
+        public static string RangeRegex(params object[] bounds)
         {
             if (bounds.Length % 2 != 0)
                 throw new ArgumentException(
