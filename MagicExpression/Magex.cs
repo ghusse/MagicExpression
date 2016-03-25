@@ -500,11 +500,11 @@
 
             for (int i = 0; i < bounds.Length; i++)
             {
-                outputRange += MagexBuilder.CreateRange(bounds[i], bounds[i + 1]);
+                outputRange += "|" + MagexBuilder.CreateRange(bounds[i], bounds[i + 1]);
                 i++;
             }
 
-            return outputRange;
+            return outputRange.Substring(1);
         }
 
 		#endregion
