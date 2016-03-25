@@ -95,10 +95,10 @@ namespace MagicExpression
         /// <example>('a', 'd') ->  "[a-d]" OR (3, 5) -> "[3-5]"</example>
         public static string SimpleRange(object from, object to)
         {
-            if (Convert.ToInt64(from) > Convert.ToInt64(to))
+            if (Convert.ToUInt64(from) > Convert.ToUInt64(to))
                 throw new ArgumentException(string.Format("From parameter {0} must be smaller (ASCII-wise) than the to {1} parameter", from, to));
 
-            return string.Format("{0}-{1}", from, to);
+            return string.Format("[{0}-{1}]", from, to);
         }
 
         #region Range support functions
@@ -112,7 +112,7 @@ namespace MagicExpression
             for (var i = 0; i < ranges.Count - 1; i++)
             {
                 string strFrom = ranges[i];
-                string strTo = ((Convert.ToInt64(ranges[i + 1])) - 1).ToString(CultureInfo.InvariantCulture);
+                string strTo = ((Convert.ToUInt64(ranges[i + 1])) - 1).ToString(CultureInfo.InvariantCulture);
 
                 for (var j = 0; j < strFrom.Length; j++)
                 {
