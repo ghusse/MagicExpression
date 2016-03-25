@@ -98,7 +98,7 @@ namespace MagicExpression
             if (Convert.ToUInt64(from) > Convert.ToUInt64(to))
                 throw new ArgumentException(string.Format("From parameter {0} must be smaller (ASCII-wise) than the to {1} parameter", from, to));
 
-            return string.Format("{0}-{1}", from, to);
+            return string.Format("[{0}-{1}]", from, to);
         }
 
         #region Range support functions
